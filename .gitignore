@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.tgz
+# Preserve the supplied internal overview locally.
+/overview.md
+
+# Local hosting metadata and tool state.
+.openai/

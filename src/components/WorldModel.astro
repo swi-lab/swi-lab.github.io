@@ -1,0 +1,139 @@
+---
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+const curves = Array.from({length: 22}, (_, row) => {
+  const points = Array.from({length: 101}, (_, col) => {
+    const x = col * 4.4;
+    const a = Math.exp(-Math.pow((x - 234) / 124, 2));
+    const y = 54 + row * 6.8 + Math.sin(x / 39 + row * .19) * a * (23 + 17 * Math.sin(row / 7));
+    return `${col === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+  return { d: points, opacity: .22 + .64 * Math.sin((row + 1) / 24 * Math.PI) };
+});
+---
+<figure class:list={['world-figure', { compact }]}>
+  <div class="figure-top"><span class="figure-index">SWI / RESEARCH PERSPECTIVE</span><span class="figure-dot" aria-hidden="true"></span></div>
+  <div class="wave-field">
+    <svg viewBox="0 0 440 244" role="img" aria-labelledby="wave-title">
+      <title id="wave-title">Conceptual field visualization: a family of waves represents a changing physical system.</title>
+      <defs><linearGradient id="wave-color" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4b16c"/><stop offset="55%" stop-color="#ecdcad"/><stop offset="100%" stop-color="#73afbc"/></linearGradient></defs>
+      <g stroke="#a0acb5" stroke-opacity=".09" stroke-width=".6">{[44,88,132,176,220,264,308,352,396].map(x => <path d={`M${x} 18V228`}/>)}{[44,88,132,176,220].map(y=><path d={`M12 ${y}H428`}/>)}</g>
+      <g fill="none" stroke="url(#wave-color)" stroke-width="1.25">{curves.map(curve => <path d={curve.d} opacity={curve.opacity}/>)}</g>
+    </svg>
+    <span class="field-label">a learned representation of change</span>
+  </div>
+  <div class="model-diagram" aria-label="Observations connect to a world model through inference; the world model connects back through generation.">
+    <div class="diagram-node">Observations<span>partial · noisy · multimodal</span></div>
+    <div class="diagram-arrows">
+      <span>infer <span class="arrow-horizontal" aria-hidden="true">→</span><span class="arrow-vertical" aria-hidden="true">↓</span></span>
+      <span><span class="arrow-horizontal" aria-hidden="true">←</span><span class="arrow-vertical" aria-hidden="true">↑</span> generate</span>
+    </div>
+    <div class="diagram-node model-node">World model<span>structure · dynamics · uncertainty</span></div>
+  </div>
+  <figcaption><span>One model. Two directions.</span><span>Conceptual illustration</span></figcaption>
+</figure>
+
+<style>
+  .world-figure {
+    container: world-figure / inline-size;
+    min-width: 0;
+    padding: 24px;
+    background: #1a2b38;
+    color: #f2f1eb;
+  }
+  .figure-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .figure-index {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: .6px;
+    color: #d1dbe2;
+  }
+  .figure-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+    border-radius: 50%;
+    background: #d9bb7b;
+  }
+  .wave-field { margin-block: 8px 22px; }
+  .wave-field svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 220px;
+  }
+  .field-label {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    color: #d1dbe2;
+  }
+  .model-diagram {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 98px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: 24px;
+    border-block: 1px solid #ffffff35;
+  }
+  .diagram-node {
+    min-width: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .diagram-node > span {
+    display: block;
+    margin-top: 8px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #cbd6df;
+  }
+  .model-node { text-align: right; color: #e1c895; }
+  .diagram-arrows {
+    display: grid;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: center;
+    color: #d1dbe2;
+  }
+  .diagram-arrows > span { white-space: nowrap; }
+  .diagram-arrows > span:first-child { color: #e1c895; }
+  .arrow-vertical { display: none; }
+  figcaption {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    padding-top: 18px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #e3e8ec;
+  }
+  figcaption > span:last-child { color: #bdcbd5; }
+  @container world-figure (max-width: 420px) {
+    .model-diagram { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .diagram-node, .model-node { text-align: center; }
+    .diagram-node > span { margin-top: 5px; text-wrap: balance; }
+    .diagram-arrows { display: flex; justify-content: center; gap: 32px; }
+    .arrow-horizontal { display: none; }
+    .arrow-vertical { display: inline; }
+    .wave-field svg { max-height: 180px; }
+  }
+  @media (max-width: 760px) {
+    .world-figure { padding: 22px; }
+  }
+  @media print {
+    .world-figure { break-inside: avoid; }
+  }
+</style>

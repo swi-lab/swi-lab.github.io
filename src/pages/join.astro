@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { lab } from '../data/lab';
+---
+<Base title="Join us" description="Information for prospective students, visiting students, and research interns at SWI Lab @ Georgia Tech.">
+  <div class="container">
+    <header class="page-heading page-heading-simple"><h1>Join us</h1></header>
+    <div class="page-content join-content">
+      <section aria-labelledby="prospective-students">
+        <h2 id="prospective-students">Prospective students</h2>
+        <ul class="recruitment-list">
+          <li>
+            <strong>PhD applicants.</strong>
+            Apply through <a href="https://grad.gatech.edu/admissions" target="_blank" rel="noopener noreferrer">Georgia Tech graduate admissions</a> and name Jiayun Wang as a potential advisor in your statement of purpose. You can also send your CV to <a href={`mailto:${lab.email}?subject=Prospective%20student`}>{lab.email}</a> with the subject “Prospective student”.
+          </li>
+          <li>
+            <strong>Georgia Tech graduate and undergraduate students.</strong>
+            Email <a href={`mailto:${lab.email}`}>Jiayun Wang</a> about your research interests. Students from computer science and other disciplines are welcome. We will follow up when your interests align with a project in the lab.
+          </li>
+          <li>
+            <strong>Visitors and research interns.</strong>
+            If you study at another institution and would like to do research with us, contact <a href={`mailto:${lab.email}`}>Jiayun Wang</a>. We will review your inquiry and get in touch if there is a suitable opportunity.
+          </li>
+        </ul>
+      </section>
+      <section class="join-contact" aria-labelledby="contact-information">
+        <h2 id="contact-information">Contact information</h2>
+        <address>
+          <span>Jiayun Wang</span>
+          <span>{lab.brand}</span>
+          <a href={`mailto:${lab.email}`}>{lab.email}</a>
+        </address>
+      </section>
+    </div>
+  </div>
+</Base>

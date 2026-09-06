@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import WorldModel from '../components/WorldModel.astro';
+import { lab, research } from '../data/lab';
+---
+<Base>
+  <section class="container hero">
+    <div class="hero-copy">
+      <p class="hero-lab-name">{lab.expansion}</p>
+      <h1>Generative world models for <em>science</em> and <em>health.</em></h1>
+      <a class="text-link" href="/research/">Explore our research <span aria-hidden="true">↗</span></a>
+    </div>
+    <WorldModel />
+  </section>
+  <section class="intro-band">
+    <div class="container intro-inner"><p class="small-label">OUR SHARED QUESTION</p><p>What can we learn about the world<br class="desktop-break"/> from what we can <span>observe?</span></p><a href="/research/#approach" aria-label="Read about our approach"><span aria-hidden="true">↗</span></a></div>
+  </section>
+  <section class="container section research-section">
+    <div class="section-heading"><div><p class="eyebrow">RESEARCH</p><h2>Across pixels, physics,<br/>and physiology.</h2></div><p class="section-summary">A shared foundation in generative modeling.<br/>Two connected worlds of application.</p></div>
+    <div class="research-grid">{research.map(item => <a class="research-card" href={`/research/#${item.id}`}><div class="card-top"><span>{item.number} /</span><span aria-hidden="true">↗</span></div><p class="small-label">{item.category}</p><h3>{item.title}</h3><p>{item.short}</p><div class="topic-list">{item.topics.map(topic => <span>{topic}</span>)}</div></a>)}</div>
+  </section>
+  <section class="container approach-preview">
+    <div><p class="eyebrow">THE IDEA THAT CONNECTS US</p><h2>Simulate forward.<br/><em>Reason backward.</em></h2></div>
+    <div class="approach-copy"><p>A world model is more than a generator. It is a prior for reconstruction, a simulator for physics, and a model of physiological dynamics.</p><p>We bring these perspectives together to infer what produced an observation—and predict what might happen next.</p><a href="/research/#approach" class="text-link">Our approach <span aria-hidden="true">↗</span></a></div>
+  </section>
+  <section class="container community-preview"><div><p class="eyebrow">WORKING TOGETHER</p><h2>Depth in methods.<br/>Honesty in applications.</h2><p>We care about rigorous ideas and systems that work beyond the benchmark. Our research connects machine learning with questions that matter to scientists and clinicians.</p></div><div class="community-links"><a href="/people/"><span><small>OUR LAB</small>People & perspectives</span><span aria-hidden="true">↗</span></a><a href="/publications/"><span><small>OUR WORK</small>Publications</span><span aria-hidden="true">↗</span></a><a href="/join/"><span><small>GET INVOLVED</small>Explore working with us</span><span aria-hidden="true">↗</span></a></div></section>
+</Base>

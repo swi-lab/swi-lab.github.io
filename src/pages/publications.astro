@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { publications } from '../data/lab';
+const years = [...new Set(publications.map(paper => paper.year))].sort((a,b) => b-a);
+---
+<Base title="Publications" description="Research publications from SWI Lab @ Georgia Tech.">
+  <div class="container">
+    <header class="page-heading page-heading-simple"><h1>Publications</h1></header>
+    <div class="page-content">
+      {publications.length > 0 ? years.map(year => <section class="publication-year"><h2>{year}</h2>{publications.filter(paper => paper.year === year).map(paper => <article class="publication">{paper.image && <img src={paper.image} alt={`Research figure for ${paper.title}`} loading="lazy"/>}<div><h3><a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3><p>{paper.authors}</p><p>{paper.venue} · {paper.year}</p><div class="publication-links"><a href={paper.url} target="_blank" rel="noopener noreferrer">Paper ↗</a>{paper.code && <a href={paper.code} target="_blank" rel="noopener noreferrer">Code ↗</a>}</div></div></article>)}</section>) : <p class="publication-empty">Publications will be added here.</p>}
+    </div>
+  </div>
+</Base>

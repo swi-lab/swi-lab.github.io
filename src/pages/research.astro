@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import { research, directions } from '../data/lab';
+---
+<Base title="Research" description="Generative world models, scientific inverse problems, and multimodal health: the research agenda at SWI Lab @ Georgia Tech.">
+  <div class="container">
+    <header class="page-heading page-heading-simple"><h1>Research</h1><p class="lead">We build world models—generative, predictive models of how things look, move, and evolve—and use them to solve inference problems in the physical and living world.</p></header>
+    <nav class="inline-nav" aria-label="Research topics"><a href="#generative-models">World models</a><a href="#science">Science</a><a href="#health">Health</a><a href="#approach">Our approach</a><a href="#directions">Research directions</a></nav>
+    {research.map(item => <section id={item.id} class="research-detail section-anchor"><div><p class="small-label">{item.number} / {item.category}</p><h2>{item.title}</h2></div><div class="prose"><p>{item.description}</p><div class="topic-list">{item.topics.map(topic => <span>{topic}</span>)}</div></div></section>)}
+    <section id="approach" class="method-section section-anchor"><p class="eyebrow">OUR ORGANIZING IDEA</p><h2 style="margin-top:13px">Forward and inverse.<br/>Two sides of the same model.</h2><div class="method-grid"><article class="method-item"><p class="small-label">FORWARD →</p><h3>What would this look like?</h3><p>Simulate, predict, and generate. A learned model connects underlying structure and dynamics to the observations we can measure.</p></article><article class="method-item"><p class="small-label">← INVERSE</p><h3>What produced this?</h3><p>Infer from partial, noisy measurements. The same model becomes a prior for reconstruction, with uncertainty as part of the answer.</p></article></div><p class="method-foundation">Our methodological foundation spans generative modeling, operator learning, inference, and representation learning. Efficiency and reliable evaluation run through all of these areas.</p></section>
+    <section id="directions" class="directions-heading section-anchor"><p class="eyebrow">QUESTIONS WE WORK ON</p><h2 style="margin-top:13px">Research directions</h2><div class="directions-grid">{directions.map((direction,index) => <article class="direction"><span>{String(index+1).padStart(2,'0')}</span><div><h3>{direction.title}</h3><p>{direction.text}</p></div></article>)}</div></section>
+    <div class="research-bottom"><a href="/publications/" class="text-link">Publications <span aria-hidden="true">↗</span></a><a href="/join/" class="text-link">Work with us <span aria-hidden="true">↗</span></a></div>
+  </div>
+</Base>
