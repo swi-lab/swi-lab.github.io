@@ -6,7 +6,7 @@ export const lab = {
   universityUrl: 'https://www.gatech.edu/',
   tagline: 'Generative world models for science and health',
   description: 'We build generative, predictive models of how things look, move, and evolve—and use them to solve inference problems in the physical and living world.',
-  email: 'jwang3799@gatech.edu',
+  email: 'pjwang@gatech.edu',
 };
 
 export const research = [
@@ -51,7 +51,7 @@ export interface Member {
   url?: string;
 }
 export const members: Member[] = [
-  { name: 'Jiayun Wang', role: 'Principal Investigator', email: 'jwang3799@gatech.edu' },
+  { name: 'Jiayun Wang', role: 'Principal Investigator', email: 'pjwang@gatech.edu' },
   { name: 'Xinsong Feng', role: 'PhD Students', email: 'xsfeng@gatech.edu' },
   { name: 'Wentao Zhou', role: 'PhD Students', email: 'wentao@gatech.edu' },
   { name: 'Tian Xia', role: 'Master’s Students', email: 'tianxia@g.harvard.edu' },
