@@ -4,7 +4,7 @@ Source for https://swi-lab.github.io/ (Science, World models and Intelligence, G
 
 ## Editing content
 
-All text lives in `src/content/`. Edit the files there — no code changes needed. Pushing to `dev` rebuilds and deploys the site.
+All text lives in `src/content/`. Edit the files there — no code changes needed. Pushing to `main` rebuilds and deploys the site.
 
 | File | What it controls |
 | --- | --- |
@@ -65,4 +65,4 @@ Content schemas are defined in `src/content.config.ts`; a missing or mistyped fi
 
 ## Deployment
 
-Pushing to `dev` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages. In the repository settings, Pages is configured to deploy from GitHub Actions.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages. In the repository settings, Pages is configured to deploy from GitHub Actions.
