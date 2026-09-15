@@ -1,0 +1,12 @@
+# Site-wide settings.
+
+[site]
+name = "SWI Lab"
+brand = "SWI Lab @ Georgia Tech"
+expansion = "Science, World models and Intelligence"
+university = "Georgia Tech"
+universityUrl = "https://www.gatech.edu/"
+logo = "/logo.png"
+description = "SWI Lab at Georgia Tech works on generative world models and their use in scientific and medical inference problems."
+email = "pjwang@gatech.edu"
+pi = "Jiayun Wang"

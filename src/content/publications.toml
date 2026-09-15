@@ -1,0 +1,16 @@
+# Publications. One [table] per paper; the table name is a unique id (a BibTeX-style key works well).
+# Grouped by year on the Publications page.
+# `topics` lists the research topics the paper appears under on the Research page:
+#   "generative-models", "science", "health"
+# `selected = true` features the paper on the home page.
+#
+# [wang2026world]
+# title = "Paper title"
+# authors = "A. Author, B. Author, Jiayun Wang"
+# venue = "CVPR"
+# year = 2026
+# url = "https://arxiv.org/abs/..."
+# code = "https://github.com/..."
+# image = "/publications/wang2026world.png"
+# topics = ["generative-models", "health"]
+# selected = true

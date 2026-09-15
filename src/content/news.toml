@@ -1,0 +1,8 @@
+# News items. One [table] per item; the table name is a unique id.
+# Sorted by `date` (newest first); the home page shows the latest five.
+# `url` is optional.
+#
+# [2026-09-lab-founded]
+# date = "2026-09"
+# text = "SWI Lab is founded at Georgia Tech."
+# url = "https://example.com"

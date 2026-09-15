@@ -1,0 +1,30 @@
+# Lab members. One [table] per member; the table name is the member's id.
+# Grouped by `role` on the People page (Principal Investigator, Postdoctoral
+# Researchers, PhD Students, Master’s Students, ...). Within a role, members are
+# sorted by the optional `order` number, then by name.
+# Optional fields: order, bio, interests, image, url.
+# Portraits go in public/people/ and are referenced as /people/<file>.
+
+[jiayun-wang]
+name = "Jiayun Wang"
+role = "Principal Investigator"
+email = "pjwang@gatech.edu"
+# image = "/people/jiayun-wang.jpg"
+# url = "https://example.com"
+# bio = "One or two sentences."
+# interests = "Generative models, inverse problems, medical imaging."
+
+[xinsong-feng]
+name = "Xinsong Feng"
+role = "PhD Students"
+email = "xsfeng@gatech.edu"
+
+[wentao-zhou]
+name = "Wentao Zhou"
+role = "PhD Students"
+email = "wentao@gatech.edu"
+
+[tian-xia]
+name = "Tian Xia"
+role = "Master’s Students"
+email = "tianxia@g.harvard.edu"

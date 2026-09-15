@@ -1,7 +1,24 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { members } from '../data/lab';
+
+// Roles appear in this order; any other role is appended at the end.
+const roleOrder = [
+  'Principal Investigator',
+  'Postdoctoral Researchers',
+  'PhD Students',
+  'Master’s Students',
+  'Undergraduate Students',
+  'Visiting Students',
+  'Alumni',
+];
+const rank = (role: string) => { const i = roleOrder.indexOf(role); return i === -1 ? roleOrder.length : i; };
+
+const members = (await getCollection('members'))
+  .map(entry => entry.data)
+  .sort((a, b) => rank(a.role) - rank(b.role) || (a.order ?? Infinity) - (b.order ?? Infinity) || a.name.localeCompare(b.name));
 const groups = [...new Set(members.map(member => member.role))];
+const initials = (name: string) => name.split(' ').map(part => part[0]).join('');
 ---
 <Base title="People" description="Members of SWI Lab at Georgia Tech.">
   <div class="container">
@@ -16,7 +33,7 @@ const groups = [...new Set(members.map(member => member.role))];
                 {member.image ? (
                   <img class="member-photo" src={member.image} alt={member.name} width="280" height="350" loading="lazy" />
                 ) : (
-                  <div class="member-photo member-initials" aria-hidden="true">{member.name.split(' ').map(part => part[0]).join('')}</div>
+                  <div class="member-photo member-initials" aria-hidden="true">{initials(member.name)}</div>
                 )}
                 <div class="member-info">
                   <header class="member-heading">

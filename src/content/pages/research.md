@@ -1,0 +1,1 @@
+We build world models—generative, predictive models of how things look, move, and evolve—and use them to solve inference problems in the physical and living world. One model serves two directions: run forward, it simulates and generates; run in reverse, it infers what produced a partial, noisy measurement.

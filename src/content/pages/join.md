@@ -1,0 +1,5 @@
+## Prospective students
+
+- **PhD applicants.** Apply through [Georgia Tech graduate admissions](https://grad.gatech.edu/admissions) and name Jiayun Wang as a potential advisor in your statement of purpose. You can also send your CV to [pjwang@gatech.edu](mailto:pjwang@gatech.edu?subject=Prospective%20student) with the subject “Prospective student”.
+- **Georgia Tech graduate and undergraduate students.** Email [Jiayun Wang](mailto:pjwang@gatech.edu) about your research interests. Students from computer science and other disciplines are welcome. We will follow up when your interests align with a project in the lab.
+- **Visitors and research interns.** If you study at another institution and would like to do research with us, contact [Jiayun Wang](mailto:pjwang@gatech.edu). We will review your inquiry and get in touch if there is a suitable opportunity.

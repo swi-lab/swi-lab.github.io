@@ -1,16 +1,18 @@
 ---
+import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import WorldModel from '../components/WorldModel.astro';
-import { news, publications } from '../data/lab';
-const recentNews = news.slice(0, 5);
-const selected = publications.filter(paper => paper.selected);
+const home = await getEntry('pages', 'home');
+if (!home) throw new Error('src/content/pages/home.md is missing');
+const { Content: Intro } = await render(home);
+const recentNews = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 5);
+const selected = (await getCollection('publications')).filter(entry => entry.data.selected).sort((a, b) => b.data.year - a.data.year);
 ---
 <Base>
   <section class="container hero" aria-labelledby="lab-name">
     <div class="hero-copy">
       <h1 id="lab-name">Science, World models <span>and Intelligence</span></h1>
-      <p class="hero-affiliation">A research group at Georgia Tech, led by Prof. <a href="/people/">Jiayun Wang</a>.</p>
-      <p class="hero-text">We build generative models to study physical and biological systems. Our work connects world models, inverse problems, and medical imaging: reconstructing images from measurements, simulating systems, and predicting how they change.</p>
+      <div class="hero-body"><Intro /></div>
       <a class="section-more hero-more" href="/research/">Research topics</a>
     </div>
     <WorldModel />
@@ -20,7 +22,7 @@ const selected = publications.filter(paper => paper.selected);
     <section class="container section news-section" aria-labelledby="news-heading">
       <h2 id="news-heading">News</h2>
       <ul class="news-list">
-        {recentNews.map(item => <li><time class="news-date" datetime={item.date}>{item.date}</time><span>{item.url ? <a href={item.url}>{item.text}</a> : item.text}</span></li>)}
+        {recentNews.map(({ data: item }) => <li><time class="news-date" datetime={item.date}>{item.date}</time><span>{item.url ? <a href={item.url}>{item.text}</a> : item.text}</span></li>)}
       </ul>
     </section>
   )}
@@ -32,7 +34,7 @@ const selected = publications.filter(paper => paper.selected);
         <a href="/publications/" class="section-more">All publications</a>
       </div>
       <ol class="related-work">
-        {selected.map(paper => (
+        {selected.map(({ data: paper }) => (
           <li>
             <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a>
             <span class="related-meta">{paper.authors} · {paper.venue} {paper.year}</span>
@@ -42,11 +44,13 @@ const selected = publications.filter(paper => paper.selected);
     </section>
   )}
 
-  <section class="container section join-preview" aria-labelledby="join-heading">
-    <h2 id="join-heading">Joining the lab</h2>
-    <div>
-      <p>We welcome prospective PhD students, Georgia Tech undergraduate and master’s students, and visiting researchers.</p>
-      <a class="section-more" href="/join/">Information for prospective students and visitors</a>
-    </div>
-  </section>
+  {home.data.joinBlurb && (
+    <section class="container section join-preview" aria-labelledby="join-heading">
+      <h2 id="join-heading">Joining the lab</h2>
+      <div>
+        <p>{home.data.joinBlurb}</p>
+        <a class="section-more" href="/join/">Information for prospective students and visitors</a>
+      </div>
+    </section>
+  )}
 </Base>
