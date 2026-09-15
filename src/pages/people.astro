@@ -3,12 +3,39 @@ import Base from '../layouts/Base.astro';
 import { members } from '../data/lab';
 const groups = [...new Set(members.map(member => member.role))];
 ---
-<Base title="People" description="Members of SWI Lab @ Georgia Tech.">
+<Base title="People" description="Members of SWI Lab at Georgia Tech.">
   <div class="container">
-    <header class="page-heading page-heading-simple"><h1>People</h1></header>
+    <header class="page-heading-simple"><h1>People</h1></header>
     <div class="page-content">
-      {members.length > 0 ? groups.map(group => <section class="member-group"><h2>{group}</h2><div class="members-grid">{members.filter(member => member.role === group).map(member => <article class="member">{member.image ? <img src={member.image} alt={member.name} width="100" height="100" loading="lazy"/> : <div class="member-initials" aria-hidden="true">{member.name.split(' ').map(part => part[0]).join('')}</div>}<div><h3>{member.url ? <a href={member.url}>{member.name}</a> : member.name}</h3>{member.interests && <p>{member.interests}</p>}<a class="member-email" href={`mailto:${member.email}`}>{member.email}<span aria-hidden="true">↗</span></a></div></article>)}</div></section>) : <div class="quiet-note"><strong>Meet the lab</strong>Member profiles will be shared here as the lab website grows.</div>}
-
+      {members.length > 0 ? groups.map(group => (
+        <section class:list={['member-group', { 'member-group-pi': group === 'Principal Investigator' }]}>
+          <h2>{group}</h2>
+          <div class="members-grid">
+            {members.filter(member => member.role === group).map(member => (
+              <article class="member">
+                {member.image ? (
+                  <img class="member-photo" src={member.image} alt={member.name} width="280" height="350" loading="lazy" />
+                ) : (
+                  <div class="member-photo member-initials" aria-hidden="true">{member.name.split(' ').map(part => part[0]).join('')}</div>
+                )}
+                <div class="member-info">
+                  <header class="member-heading">
+                    <h3>{member.url ? <a href={member.url}>{member.name}</a> : member.name}</h3>
+                    <a class="member-email" href={`mailto:${member.email}`}>{member.email}</a>
+                  </header>
+                  <p class:list={['member-bio', { 'member-placeholder': !member.bio }]}>
+                    {member.bio || 'Biography forthcoming.'}
+                  </p>
+                  <dl class="member-interests">
+                    <dt>Research interests</dt>
+                    <dd class:list={{ 'member-placeholder': !member.interests }}>{member.interests || 'To be added.'}</dd>
+                  </dl>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )) : <p class="publication-empty">Member profiles will be added soon.</p>}
     </div>
   </div>
 </Base>

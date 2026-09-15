@@ -1,45 +1,43 @@
-# SWI Lab @ Georgia Tech
+# SWI Lab website
 
-An Astro website for **Science, World models and Intelligence**, based on the supplied lab overview. Academic navigation and content organization are inspired by the [UVA Computer Vision Lab](https://uva-computer-vision-lab.github.io/); this site uses an independent layout, typography, and Georgia Tech-inspired navy/gold palette.
+Source for https://swi-lab.github.io/ (Science, World models and Intelligence, Georgia Tech). Built with [Astro](https://astro.build/) and deployed to GitHub Pages.
 
-## Develop
+## Development
 
-Use Node.js 22.12 or newer (a current LTS release is recommended).
+Requires Node.js 22.12 or newer.
 
 ```sh
 npm install
-npm run dev
+npm run dev      # local preview at http://127.0.0.1:4321/
+npm run build    # static output in dist/
+npm run preview  # serve dist/
+npm run check    # type-check .astro files
 ```
 
-Astro prints the local preview URL. Astro 7 runs its dev server in the background; stop it with `npx astro dev stop`.
+Astro 7 keeps the dev server running in the background; stop it with `npx astro dev stop`.
 
-```sh
-npm run check
-npm run build
-npm run preview
-```
+## Editing content
 
-The production site is static HTML in `dist/`.
+Almost all content lives in `src/data/lab.ts`:
 
-## Edit content
+- `lab` – name, contact email, logo path
+- `research` – the three research topics; set `topics` on a publication to list it under a topic as related work, and `selected` to feature it on the home page
+- `news` – home-page news items (newest first)
+- `members` – people, grouped by `role`
+- `publications` – grouped by year on the Publications page
 
-- `src/data/lab.ts`: branding, contact email, research areas, member profiles, publications.
-- `src/pages/`: Home, Research, People, Publications, Join us, and 404.
-- `src/styles/global.css`: responsive layout, colors, typography, print styling.
-- `src/components/WorldModel.astro`: original, mathematically generated conceptual wave/forward-inverse diagram. It is an illustration, not an experimental result.
+Pages are in `src/pages/`, shared layout in `src/layouts/Base.astro`, styles in `src/styles/global.css`. The logo is `public/logo.png`; fonts in `public/fonts/` are DM Sans and Libre Caslon Display (SIL Open Font License).
 
-Member names, roles, and emails were provided by the site owner. Jiayun Wang is the PI and the lab contact; Xinsong Feng and Wentao Zhou are PhD students; Tian Xia is a master’s student. Portraits and individual research interests have not been supplied. The publication list is deliberately empty until verified papers are provided. Adding entries to the typed arrays automatically fills the corresponding pages; publications are grouped by year. No papers, recruitment dates, biographies, or photographs have been invented.
+Browser icons are exported from the logo: `public/favicon.ico` (16, 32, and 48 px), `public/favicon-16x16.png`, `public/favicon-32x32.png`, and `public/apple-touch-icon.png` (180 px). These are linked by the shared layout on every page. Update these exports when replacing the logo.
 
-The site uses locally served font files (DM Sans and Libre Caslon Display, SIL Open Font License; see `public/fonts/OFL-*.txt`), a compact responsive navigation, keyboard focus styles, reduced-motion support, and a skip link. It has no analytics, trackers, or runtime backend.
+### Research content
 
-## GitHub Pages
+Each research area has a `label` for navigation, a `title`, a home-page `short` summary, a `description`, and a list of `directions`. Each direction contains a stable `id`, a `title`, and a `text` description of the research problem. The home page links directly to these directions on the Research page, so keep IDs unique and preserve them when updating the copy.
 
-Website: https://swi-lab.github.io/
+### Member profiles
 
-The `dev` branch contains the website source. Pushing to `dev` runs `.github/workflows/deploy.yml`, builds the Astro site, and deploys `dist/` to GitHub Pages. The workflow uses the npm lockfile and Node.js 22.
+Each entry in `members` supports `image`, `bio` (one or two sentences), `interests` (plain text), and an optional `url` for a personal website. Put portraits in `public/people/` and set `image` to the corresponding path, such as `/people/jiayun-wang.jpg`. Portraits display in a 4:5 frame. Empty profile fields retain a labeled placeholder so the photo, biography, and research-interest areas stay visible until content is supplied.
 
-In repository **Settings → Pages**, the build source is **GitHub Actions**. The `github-pages` environment allows deployments from `dev`.
+## Deployment
 
-This organization repository publishes at the root URL, so `astro.config.mjs` sets `site` to `https://swi-lab.github.io` without a `base` path. A successful deployment can be reviewed from the repository’s Actions tab.
-
-Local hosting configuration, internal overview notes, generated output, dependencies, and credentials are excluded from this repository.
+Pushing to `dev` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/` to GitHub Pages. In the repository settings, Pages is configured to deploy from GitHub Actions.
