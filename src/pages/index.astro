@@ -6,7 +6,6 @@ const home = await getEntry('pages', 'home');
 if (!home) throw new Error('src/content/pages/home.md is missing');
 const { Content: Intro } = await render(home);
 const recentNews = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 5);
-const selected = (await getCollection('publications')).filter(entry => entry.data.selected).sort((a, b) => b.data.year - a.data.year);
 ---
 <Base>
   <section class="container hero" aria-labelledby="lab-name">
@@ -24,23 +23,6 @@ const selected = (await getCollection('publications')).filter(entry => entry.dat
       <ul class="news-list">
         {recentNews.map(({ data: item }) => <li><time class="news-date" datetime={item.date}>{item.date}</time><span>{item.url ? <a href={item.url}>{item.text}</a> : item.text}</span></li>)}
       </ul>
-    </section>
-  )}
-
-  {selected.length > 0 && (
-    <section class="container section" aria-labelledby="selected-heading">
-      <div class="section-heading">
-        <h2 id="selected-heading">Selected publications</h2>
-        <a href="/publications/" class="section-more">All publications</a>
-      </div>
-      <ol class="related-work">
-        {selected.map(({ data: paper }) => (
-          <li>
-            {paper.url ? <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a> : <span>{paper.title}</span>}
-            <span class="related-meta">{paper.authors} · {paper.venue} {paper.year}</span>
-          </li>
-        ))}
-      </ol>
     </section>
   )}
 

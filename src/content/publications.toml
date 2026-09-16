@@ -1,7 +1,7 @@
 # Publications. Edit this file to update the website; one table per citation key.
 # Initially imported from papers.bib and preprints.bib, which remain unchanged as references.
 # Disabled entries without @ (including the Einstein example) are not publications.
-# Entries are displayed by year; `selected = true` also features a paper on the home page.
+# Entries are displayed by year on the Publications page; `selected` preserves the bibliography's editorial metadata.
 # `preprint` describes publication status, independent of the source BibTeX filename.
 # `topics`: generative-models, agentic-systems, science-medicine.
 # Links: url = paper landing page, pdf = direct PDF, code = repository, project = project page.

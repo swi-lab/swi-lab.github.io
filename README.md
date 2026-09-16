@@ -21,10 +21,7 @@ In the TOML lists every entry is a `[table]` whose name is its id. Each file sta
 
 ### Publications
 
-A paper appears in these places from one entry:
-
-- **Publications page** — always.
-- **Home page** — under "Selected publications" when `selected = true`.
+All entries appear on the Publications page, grouped by year.
 
 The Research page's representative-work lists and short explanations are edited directly in `topics/*.md`, alongside each thrust's ongoing projects. The three thrusts are `generative-models`, `agentic-systems`, and `science-medicine`.
 
@@ -43,7 +40,6 @@ project = "https://example.com/"       # optional project website
 award = "Oral"                        # optional
 preprint = false                      # true only for work not yet published/accepted
 topics = ["generative-models", "science-medicine"] # optional editorial tags
-selected = true
 ```
 
 `url` is optional when no public paper link is available. Only add PDFs and images that exist; the original bibliography's relative asset names are not bundled with the site. Entries have stable `/publications/#citation-key` links. Corrected metadata is documented beside the relevant TOML entries.

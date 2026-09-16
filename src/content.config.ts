@@ -81,7 +81,7 @@ const publications = defineCollection({
     preprint: z.boolean().default(false),
     image: z.string().optional(),
     topics: z.array(z.string()).default([]),  // research topic ids for editorial organization
-    selected: z.boolean().default(false),     // featured on the home page
+    selected: z.boolean().default(false),     // retained editorial metadata from the bibliography
   }),
 });
 
