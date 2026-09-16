@@ -4,9 +4,7 @@ order = 3
 +++
 ### Inverse problems
 
-Recovering structure from partial, noisy measurements.
-
-**Applications:** compressed-sensing MRI, sparse-view CT, lung ultrasound, photoacoustic tomography, and functional ultrasound.
+Recovering structure from partial, noisy measurements. Applications: compressed-sensing MRI, sparse-view CT, lung ultrasound, photoacoustic tomography, and functional ultrasound.
 
 <h4 id="inverse-problems-work">Representative work</h4>
 
@@ -16,9 +14,7 @@ Recovering structure from partial, noisy measurements.
 
 ### Forward models
 
-Learned simulators and surrogates.
-
-**Applications:** turbulence and chaotic systems, multiphysics PDE surrogates, wave and acoustic simulation, and satellite pose estimation.
+Learned simulators and surrogates. Applications: turbulence and chaotic systems, multiphysics PDE surrogates, wave and acoustic simulation, and satellite pose estimation.
 
 <h4 id="forward-models-work">Representative work</h4>
 
@@ -26,9 +22,7 @@ Learned simulators and surrogates.
 
 ### Clinical data
 
-Multimodal diagnosis and decision support.
-
-**Applications:** ocular surface disease, surgical video and skill assessment, prognosis under class imbalance, and calibrated deferral to clinicians.
+Multimodal diagnosis and decision support. Applications: ocular surface disease, surgical video and skill assessment, prognosis under class imbalance, and calibrated deferral to clinicians.
 
 <h4 id="clinical-data-work">Representative work</h4>
 
