@@ -1,8 +1,14 @@
 # News items. One [table] per item; the table name is a unique id.
 # Sorted by `date` (newest first); the home page shows the latest five.
+# Dates are announcement months; event dates are included in the text.
 # `url` is optional.
-#
-# [2026-09-lab-founded]
-# date = "2026-09"
-# text = "SWI Lab is founded at Georgia Tech."
-# url = "https://example.com"
+
+[2026-09-welcome-phd]
+date = "2026-09"
+text = "Welcome to Xinsong Feng and Wentao Zhou, our new PhD students!"
+url = "/people/"
+
+[2026-09-i2i-workshop]
+date = "2026-09"
+text = "Jiayun Wang will present “Leveraging Physics for Learning in Imaging” at the i2i Workshop at NYU Langone Health on October 21, 2026."
+url = "https://cai2r.net/training/i2i-workshop/"
