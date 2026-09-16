@@ -2,6 +2,7 @@
 title = "Science and Medicine"
 order = 3
 +++
+We develop physics-informed and multimodal AI for science and medicine, spanning inverse problems, learned simulators and clinical diagnosis and support.
 <h3 id="inverse-problems-work">Inverse problems</h3>
 
 
