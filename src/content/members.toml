@@ -2,23 +2,21 @@
 # Grouped by `role` on the People page (Principal Investigator, Postdoctoral
 # Researchers, PhD Students, Master’s Students, ...). Within a role, members are
 # sorted by the optional `order` number, then by name.
-# Optional fields: order, bio, interests, image, url, urlLabel (defaults to Website).
+# Optional fields: order, bio, interests, image, url (personal site; links the member's name).
 # Portraits go in public/people/ and are referenced as /people/<file>.
-# Each bio entry uses two lines: degree/field, then institution/year. Separate entries with a blank line.
+# Each bio entry uses two lines: title or degree + program, then school, institution and years. Separate entries with a blank line.
+# Each member lists only their current position or program.
 
 [jiayun-wang]
 name = "Jiayun Wang"
 role = "Principal Investigator"
 email = "pjwang@gatech.edu"
-# Bio verified against https://pwang.pw/assets/pdf/CV.pdf; interests from the lab overview.
+# Position confirmed by the lab (2026); interests from the lab overview.
 image = "/people/jiayun-wang.jpg"
 url = "https://pwang.pw/"
 bio = """
-Postdoc
-Caltech, 2025.
-
-Ph.D.
-UC Berkeley, 2023.
+Assistant Professor
+School of CSE, Georgia Tech, 2026–present.
 """
 interests = "Generative models, world models, agentic systems, inverse problems, medical imaging."
 
@@ -31,31 +29,21 @@ email = "xsfeng@gatech.edu"
 image = "/people/xinsong-feng.jpg"
 url = "https://xfeng01.github.io/"
 bio = """
-M.S., Electrical and Computer Engineering
-UCLA, 2025.
-
-B.Eng., Communication Engineering
-Chongqing University, 2023.
+Ph.D., CS
+School of CSE, Georgia Tech, 2026–present.
 """
-interests = "Reinforcement learning, generative models, large language models, diffusion language models."
+interests = "Diffusion language models, Agents, RL"
 
 [wentao-zhou]
 name = "Wentao Zhou"
 role = "PhD Students"
 order = 2
 email = "wentao@gatech.edu"
-# Photo from Wentao's website; degrees and graduation years confirmed by Wentao.
 image = "/people/wentao-zhou.jpeg"
 url = "https://zwt.zip/"
 bio = """
-M.S., Computer Science
-University of Virginia, 2026.
-
-B.S., Computer Science and Engineering
-University of Michigan, 2024.
-
-B.S., Electrical and Computer Engineering
-Shanghai Jiao Tong University, 2024.
+Ph.D., CS
+School of CSE, Georgia Tech, 2026–present.
 """
 interests = "Computer vision"
 
@@ -67,12 +55,8 @@ email = "tianxia@g.harvard.edu"
 # https://tianx-ia.github.io/ returned 404 on 2026-09-15; use the public GitHub profile until restored.
 image = "/people/tian-xia.jpeg"
 url = "https://github.com/TianX-IA"
-urlLabel = "GitHub"
 bio = """
-M.S., Computational Science and Engineering
+M.S., CSE
 Harvard University, Aug. 2025–present.
-
-B.S., Mathematics and Computer Science
-University of Michigan, 2025.
 """
 interests = "3D understanding, generative AI, embodied agents, multimodal representation learning, robotics."

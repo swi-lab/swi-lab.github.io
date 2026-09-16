@@ -141,7 +141,9 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .member-initials { aspect-ratio: 1; display: grid; place-items: center; background: #f0f2f3; border: 1px solid var(--line); color: var(--gold); font-family: var(--serif); font-size: 40px; letter-spacing: 1px; }
 .member-info, .member-heading { min-width: 0; }
 .member h3 { font-size: 21px; font-weight: 500; }
+.member h3 a::after { content: ""; display: inline-block; width: .5em; height: .5em; margin-left: .3em; vertical-align: .3em; background: var(--gold-light); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M7 17 17 7M8 7h9v9%27/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27black%27 stroke-width=%272.5%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M7 17 17 7M8 7h9v9%27/%3E%3C/svg%3E") center / contain no-repeat; transition: background-color .16s ease, transform .16s ease; }
 .member h3 a:hover { color: var(--gold); }
+.member h3 a:hover::after { background: var(--gold); transform: translate(2px, -2px); }
 .member-bio { display: grid; gap: 10px; margin-top: 16px; min-height: 3.4em; font-size: 15px; line-height: 1.7; color: var(--muted); }
 .member-bio p { white-space: pre-line; }
 .member-interests { margin: 16px 0 0; }
@@ -150,8 +152,6 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .member-bio, .member-interests dd { overflow-wrap: anywhere; }
 .member-email { display: inline-block; font-size: 14px; line-height: 1.6; color: var(--gold); margin-top: 8px; overflow-wrap: anywhere; text-decoration: underline; text-decoration-color: var(--gold-light); text-underline-offset: 3px; }
 .member-email:hover { color: var(--ink); }
-.member-website { display: block; width: fit-content; margin-top: 6px; color: var(--gold); font-size: 14px; line-height: 1.6; text-decoration: underline; text-underline-offset: 3px; }
-.member-website:hover { color: var(--ink); }
 
 /* Publications */
 .publication-year { margin-bottom: 30px; }

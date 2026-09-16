@@ -51,7 +51,6 @@ const members = defineCollection({
     interests: z.string().optional(),
     image: z.string().optional(),   // portrait under public/, e.g. /people/jiayun-wang.jpg
     url: z.string().optional(),     // personal website
-    urlLabel: z.string().default('Website'),
   }),
 });
 
