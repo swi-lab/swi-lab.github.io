@@ -13,4 +13,4 @@ We study evolutionary search over agent programs, self-play and adversarial trai
 <h3 id="agentic-systems-ongoing">Ongoing</h3>
 
 - **Evolution via adversarial training and self-play.** Co-evolving a generator against a learned validator or critic so neither side needs an external reward signal.
-- Efficient recursive self-improvement for long-horizon tasks.
+- **Efficient recursive self-improvement for long-horizon tasks.**

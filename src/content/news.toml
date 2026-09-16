@@ -3,9 +3,14 @@
 # Dates are announcement months; event dates are included in the text.
 # `url` is optional.
 
-[2026-09-welcome-phd]
-date = "2026-09"
-text = "Welcome to Xinsong Feng and Wentao Zhou, our new PhD students!"
+[2026-08-welcome-phd1]
+date = "2026-08"
+text = "Welcome Xinsong Feng as our new PhD students!"
+url = "/people/"
+
+[2026-08-welcome-phd2]
+date = "2026-08"
+text = "Welcome Wentao Zhou as our new PhD students!""
 url = "/people/"
 
 [2026-09-i2i-workshop]

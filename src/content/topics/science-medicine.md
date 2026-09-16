@@ -2,9 +2,10 @@
 title = "Science and Medicine"
 order = 3
 +++
-### Inverse problems
+<h2 id="inverse-problems-work">Inverse problems</h2>
 
-Recovering structure from partial, noisy measurements. Applications: compressed-sensing MRI, sparse-view CT, lung ultrasound, photoacoustic tomography, and functional ultrasound.
+
+Recovering structure from partial, noisy measurements. *Applications*: compressed-sensing MRI, sparse-view CT, lung ultrasound, photoacoustic tomography, and functional ultrasound.
 
 <h4 id="inverse-problems-work">Representative work</h4>
 
@@ -14,7 +15,7 @@ Recovering structure from partial, noisy measurements. Applications: compressed-
 
 ### Forward models
 
-Learned simulators and surrogates. Applications: turbulence and chaotic systems, multiphysics PDE surrogates, wave and acoustic simulation, and satellite pose estimation.
+Learned simulators and surrogates. *Applications*: turbulence and chaotic systems, multiphysics PDE surrogates, wave and acoustic simulation, and satellite pose estimation.
 
 <h4 id="forward-models-work">Representative work</h4>
 
@@ -22,7 +23,7 @@ Learned simulators and surrogates. Applications: turbulence and chaotic systems,
 
 ### Clinical data
 
-Multimodal diagnosis and decision support. Applications: ocular surface disease, surgical video and skill assessment, prognosis under class imbalance, and calibrated deferral to clinicians.
+Multimodal diagnosis and decision support. *Applications*: ocular surface disease, surgical video and skill assessment, prognosis under class imbalance, and calibrated deferral to clinicians.
 
 <h4 id="clinical-data-work">Representative work</h4>
 
@@ -30,8 +31,8 @@ Multimodal diagnosis and decision support. Applications: ocular surface disease,
 - [Multi-Modal Self-Supervised Learning for Surgical Feedback Effectiveness Assessment](https://arxiv.org/abs/2411.10919) — ML4H 2024 (Best Paper).
 - [Artificial Intelligence Models Utilize Lifestyle Factors to Predict Dry Eye Related Outcomes](https://www.nature.com/articles/s41598-025-96778-x) — Scientific Reports 2025.
 
-<h3 id="science-medicine-ongoing">Ongoing</h3>
+<h3 id="science-medicine-ongoing">Ongoing work</h3>
 
 - **Shared neural operator across modalities:** one trained simulator serves both the inverse and the forward direction.
-- Ranking-aware prompt evolution for multimodal clinical diagnosis.
-- 4D brain imaging via functional ultrasound.
+- **Ranking-aware prompt evolution for multimodal clinical diagnosis.**
+- **4D brain imaging via functional ultrasound.**
