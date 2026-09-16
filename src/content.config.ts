@@ -27,7 +27,7 @@ const pages = defineCollection({
   }),
 });
 
-// Research topics (Markdown, one file per topic). The body is the paragraph shown on the Research page.
+// Research thrusts (Markdown), including representative work and ongoing projects.
 const topics = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/topics' }),
   schema: z.object({
@@ -51,6 +51,7 @@ const members = defineCollection({
     interests: z.string().optional(),
     image: z.string().optional(),   // portrait under public/, e.g. /people/jiayun-wang.jpg
     url: z.string().optional(),     // personal website
+    urlLabel: z.string().default('Website'),
   }),
 });
 
@@ -72,10 +73,14 @@ const publications = defineCollection({
     authors: z.string(),
     venue: z.string(),
     year: z.number(),
-    url: z.string(),
+    url: z.string().optional(),
     code: z.string().optional(),
+    pdf: z.string().optional(),
+    project: z.string().optional(),
+    award: z.string().optional(),
+    preprint: z.boolean().default(false),
     image: z.string().optional(),
-    topics: z.array(z.string()).default([]),  // topic ids: listed as related work under each on the Research page
+    topics: z.array(z.string()).default([]),  // research topic ids for editorial organization
     selected: z.boolean().default(false),     // featured on the home page
   }),
 });

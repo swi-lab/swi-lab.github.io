@@ -12,7 +12,7 @@ All text lives in `src/content/`. Edit the files there — no code changes neede
 | `pages/home.md` | Home page intro (first paragraph is the one-line affiliation) and the "Joining the lab" blurb |
 | `pages/research.md` | Intro paragraph at the top of the Research page |
 | `pages/join.md` | Body of the Join us page (Markdown) |
-| `topics/*.md` | One file per research topic: `title`, `order`, `tags` in the `+++` header, the paragraph as the body |
+| `topics/*.md` | One file per research thrust: `title` and `order` in the `+++` header; descriptions, representative work, and ongoing projects in Markdown |
 | `members.toml` | People, grouped by `role`; optional `order` sorts within a role |
 | `news.toml` | News items, sorted by `date`; the home page shows the latest five |
 | `publications.toml` | Publications, grouped by year on the Publications page |
@@ -21,11 +21,14 @@ In the TOML lists every entry is a `[table]` whose name is its id. Each file sta
 
 ### Publications
 
-A paper appears in three places from one entry:
+A paper appears in these places from one entry:
 
 - **Publications page** — always.
-- **Research page** — under each topic listed in `topics` (`generative-models`, `science`, `health`) as related work.
 - **Home page** — under "Selected publications" when `selected = true`.
+
+The Research page's representative-work lists and short explanations are edited directly in `topics/*.md`, alongside each thrust's ongoing projects. The three thrusts are `generative-models`, `agentic-systems`, and `science-medicine`.
+
+The supplied root-level `papers.bib` and `preprints.bib` are retained as import references. The live editing source is `src/content/publications.toml`; editing a `.bib` file does not automatically change the website. The initial import includes all 34 active bibliography entries plus the Reward-Free Evolving Agents paper from the updated overview. Disabled examples without an `@` prefix were not imported. Conference acceptance follows each entry's venue, not which BibTeX file contained it.
 
 ```toml
 [wang2026world]
@@ -35,13 +38,33 @@ venue = "CVPR"
 year = 2026
 url = "https://arxiv.org/abs/..."
 code = "https://github.com/..."        # optional
-topics = ["generative-models", "health"]
+pdf = "https://arxiv.org/pdf/..."      # optional
+project = "https://example.com/"       # optional project website
+award = "Oral"                        # optional
+preprint = false                      # true only for work not yet published/accepted
+topics = ["generative-models", "science-medicine"] # optional editorial tags
 selected = true
 ```
 
+`url` is optional when no public paper link is available. Only add PDFs and images that exist; the original bibliography's relative asset names are not bundled with the site. Entries have stable `/publications/#citation-key` links. Corrected metadata is documented beside the relevant TOML entries.
+
 ### Members
 
-Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Alumni. Optional fields: `order` (position within a role), `bio`, `interests`, `url` (personal site), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` show a placeholder until filled in.
+Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site), `urlLabel` (defaults to "Website"), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
+
+Use a multiline TOML string for `bio`. Each entry has the degree and field on the first line and the institution and year on the second. Separate entries with a blank line:
+
+```toml
+bio = """
+M.S., Electrical and Computer Engineering
+UCLA, 2025.
+
+B.Eng., Communication Engineering
+Chongqing University, 2023.
+"""
+```
+
+Profile sources are recorded in `members.toml`. Tian's supplied personal-site URL returned 404 during this update, so his profile links to GitHub until the site is restored. Wentao's profile and photo come from his supplied personal site, https://zwt.zip/.
 
 ### Logo and icons
 

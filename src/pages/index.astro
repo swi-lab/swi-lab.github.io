@@ -36,7 +36,7 @@ const selected = (await getCollection('publications')).filter(entry => entry.dat
       <ol class="related-work">
         {selected.map(({ data: paper }) => (
           <li>
-            <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a>
+            {paper.url ? <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a> : <span>{paper.title}</span>}
             <span class="related-meta">{paper.authors} · {paper.venue} {paper.year}</span>
           </li>
         ))}

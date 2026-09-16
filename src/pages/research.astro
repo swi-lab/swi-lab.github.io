@@ -5,41 +5,23 @@ const intro = await getEntry('pages', 'research');
 const { Content: Intro } = intro ? await render(intro) : { Content: null };
 const topics = (await getCollection('topics')).sort((a, b) => a.data.order - b.data.order);
 const rendered = await Promise.all(topics.map(async topic => ({ topic, Content: (await render(topic)).Content })));
-const publications = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year);
-const worksFor = (id: string) => publications.filter(entry => entry.data.topics.includes(id));
 ---
-<Base title="Research" description="Generative world models for science and health: research topics and related work at SWI Lab, Georgia Tech.">
+<Base title="Research" description="Generative and world models, agentic and self-improving systems, and science and medicine: research and representative work at SWI Lab, Georgia Tech.">
   <div class="container">
     <header class="page-heading-simple">
       <h1>Research</h1>
       {Intro && <div class="lead-body"><Intro /></div>}
     </header>
 
-    {rendered.map(({ topic, Content }) => {
-      const works = worksFor(topic.id);
-      return (
+    {rendered.map(({ topic, Content }) => (
         <section id={topic.id} class="research-section section-anchor">
           <h2>{topic.data.title}</h2>
           <div class="research-body">
-            <div class="research-description"><Content /></div>
             {topic.data.tags.length > 0 && <ul class="tag-list" aria-label="Keywords">{topic.data.tags.map(tag => <li>{tag}</li>)}</ul>}
-            <h3 class="related-title">Related work</h3>
-            {works.length > 0 ? (
-              <ol class="related-work">
-                {works.map(({ data: paper }) => (
-                  <li>
-                    <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a>
-                    <span class="related-meta">{paper.venue} {paper.year}{paper.code && <> · <a href={paper.code} target="_blank" rel="noopener noreferrer">code</a></>}</span>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p class="related-empty">Coming soon.</p>
-            )}
+            <div class="research-description"><Content /></div>
           </div>
         </section>
-      );
-    })}
+    ))}
 
     <div class="research-bottom"><a href="/publications/">All publications</a><a href="/join/">Join us</a></div>
   </div>

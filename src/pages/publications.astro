@@ -1,32 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
-const publications = (await getCollection('publications')).map(entry => entry.data);
+const publications = (await getCollection('publications'))
+  .map(entry => ({ id: entry.id, ...entry.data }))
+  .sort((a, b) => b.year - a.year || Number(a.preprint) - Number(b.preprint) || a.title.localeCompare(b.title));
 const years = [...new Set(publications.map(paper => paper.year))].sort((a, b) => b - a);
+const hasEqualContribution = publications.some(paper => paper.authors.includes('*'));
 ---
 <Base title="Publications" description="Publications from SWI Lab at Georgia Tech.">
   <div class="container">
     <header class="page-heading page-heading-simple"><h1>Publications</h1></header>
     <div class="page-content">
       {publications.length > 0 ? years.map(year => (
-        <section class="publication-year">
-          <h2>{year}</h2>
+        <section class="publication-year" aria-labelledby={`publications-${year}`}>
+          <h2 id={`publications-${year}`}>{year}</h2>
           {publications.filter(paper => paper.year === year).map(paper => (
-            <article class="publication">
+            <article class="publication" id={paper.id}>
               {paper.image && <img src={paper.image} alt="" loading="lazy" />}
               <div>
-                <h3><a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
+                <h3>{paper.url ? <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a> : paper.title}</h3>
                 <p>{paper.authors}</p>
-                <p>{paper.venue}, {paper.year}</p>
-                <div class="publication-links">
-                  <a href={paper.url} target="_blank" rel="noopener noreferrer">Paper</a>
+                <p>
+                  {paper.venue}{paper.preprint && ' preprint'}, {paper.year}
+                  {paper.award && <span class="publication-award"> · {paper.award}</span>}
+                </p>
+                {(paper.url || paper.pdf || paper.code || paper.project) && <div class="publication-links">
+                  {paper.url && paper.url !== paper.pdf && paper.url !== paper.project && <a href={paper.url} target="_blank" rel="noopener noreferrer">Paper</a>}
+                  {paper.pdf && <a href={paper.pdf} target="_blank" rel="noopener noreferrer">PDF</a>}
                   {paper.code && <a href={paper.code} target="_blank" rel="noopener noreferrer">Code</a>}
-                </div>
+                  {paper.project && <a href={paper.project} target="_blank" rel="noopener noreferrer">Project</a>}
+                </div>}
               </div>
             </article>
           ))}
         </section>
       )) : <p class="publication-empty">Publications will be listed here.</p>}
+      {hasEqualContribution && <p class="contribution-note">* Equal contribution.</p>}
     </div>
   </div>
 </Base>
+
+<style>
+  .publication { scroll-margin-top: 6rem; }
+  .publication-award { color: var(--gold); font-weight: 600; }
+  .publication-links { flex-wrap: wrap; row-gap: 8px; }
+  .contribution-note { color: var(--muted); font-size: 14px; }
+</style>

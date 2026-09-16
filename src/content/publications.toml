@@ -1,16 +1,421 @@
-# Publications. One [table] per paper; the table name is a unique id (a BibTeX-style key works well).
-# Grouped by year on the Publications page.
-# `topics` lists the research topics the paper appears under on the Research page:
-#   "generative-models", "science", "health"
-# `selected = true` features the paper on the home page.
-#
-# [wang2026world]
-# title = "Paper title"
-# authors = "A. Author, B. Author, Jiayun Wang"
-# venue = "CVPR"
-# year = 2026
-# url = "https://arxiv.org/abs/..."
-# code = "https://github.com/..."
-# image = "/publications/wang2026world.png"
-# topics = ["generative-models", "health"]
-# selected = true
+# Publications. Edit this file to update the website; one table per citation key.
+# Initially imported from papers.bib and preprints.bib, which remain unchanged as references.
+# Disabled entries without @ (including the Einstein example) are not publications.
+# Entries are displayed by year; `selected = true` also features a paper on the home page.
+# `preprint` describes publication status, independent of the source BibTeX filename.
+# `topics`: generative-models, agentic-systems, science-medicine.
+# Links: url = paper landing page, pdf = direct PDF, code = repository, project = project page.
+# Missing local PDFs and preview images are intentionally omitted to avoid broken links.
+# Author names ending in * mark equal contribution, as supplied in the bibliography.
+
+[wang2026inference]
+title = "Inference Time Optimization with Confidence Dynamics"
+authors = "Yu Wang, Minghao Liu, Jiayun Wang, Jinrui Huang, Ankit Shah, Wei Wei"
+venue = "ICML"
+year = 2026
+url = "https://arxiv.org/abs/2605.25244"
+pdf = "https://arxiv.org/pdf/2605.25244"
+preprint = false
+topics = ["agentic-systems"]
+selected = false
+
+[datta2026resolution]
+title = "Resolution-Agnostic Neural Operators for Multi-Rate Sparse-View CT"
+authors = "Aujasvit Datta*, Jiayun Wang*, Asad Aali, Anima Anandkumar"
+venue = "ECCV"
+year = 2026
+url = "https://arxiv.org/abs/2512.12236"
+pdf = "https://arxiv.org/pdf/2512.12236"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[wang2026memex]
+title = "Memex (RL): Scaling Long-Horizon LLM Agents via Indexed Experience Memory"
+authors = "Zhenting Wang, Huancheng Chen, Jiayun Wang, Wei Wei"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2603.04257"
+pdf = "https://arxiv.org/pdf/2603.04257"
+preprint = true
+topics = ["agentic-systems"]
+selected = false
+
+# Additional representative work from overview.md; metadata verified against arXiv:2607.14408 (not in the supplied BibTeX).
+[liu2026reward]
+title = "Reward-Free Evolving Agents via Pairwise Validator"
+authors = "Minghao Liu, Yu Wang, Jiayun Wang, Wei Wei"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2607.14408"
+pdf = "https://arxiv.org/pdf/2607.14408"
+preprint = true
+topics = ["agentic-systems"]
+selected = false
+
+[wang2026unified]
+title = "UniVL: Unified Vision-Language Embedding for Spatially Grounded Contextual Image Generation"
+authors = "Jiayun Wang, Yu Wang, Weijie Gan, Zhenting Wang, Wei Wei"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2605.21611"
+pdf = "https://arxiv.org/pdf/2605.21611"
+preprint = true
+topics = ["generative-models"]
+selected = false
+
+[Jatyani2024]
+title = "A Unified Model for Compressed Sensing MRI Across Undersampling Patterns"
+authors = "Armeet Jatyani*, Jiayun Wang*, Aditi Chandrashekar, Zihui Wu, Miguel Liu-Schiaffini, Bahareh Tolooshams, Anima Anandkumar"
+venue = "CVPR"
+year = 2025
+url = "https://arxiv.org/abs/2410.16290"
+pdf = "https://arxiv.org/pdf/2410.16290"
+project = "https://armeet.ca/nomri"
+preprint = false
+topics = ["science-medicine"]
+selected = true
+
+# Year, publisher link, and author details updated from the Scientific Reports publication (18 April 2025).
+[lifestyle2024]
+title = "Artificial Intelligence Models Utilize Lifestyle Factors to Predict Dry Eye Related Outcomes"
+authors = "Andrew D. Graham, Jiayun Wang, Tejasvi Kothapalli, Jennifer E. Ding, Helen Tasho, Alisa Molina, Vivien Tse, Sarah M. Chang, Stella X. Yu, Meng C. Lin"
+venue = "Scientific Reports"
+year = 2025
+url = "https://www.nature.com/articles/s41598-025-96778-x"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[nguyen2025flow]
+title = "Flow-Guided Neural Operator for Self-Supervised Learning on Time Series Data"
+authors = "Duy Nguyen*, Jiayun Wang*, Jiachen Yao*, Julius Berner, Anima Anandkumar"
+venue = "TMLR"
+year = 2025
+url = "https://openreview.net/pdf?id=D4CH3hCNdb"
+pdf = "https://openreview.net/pdf?id=D4CH3hCNdb"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[Yao2024open]
+title = "Open Vocabulary Monocular 3D Object Detection"
+authors = "Jin Yao, Hao Gu, Xuweiyi Chen, Jiayun Wang, Zezhou Cheng"
+venue = "3DV"
+year = 2025
+url = "https://arxiv.org/abs/2411.16833"
+pdf = "https://arxiv.org/pdf/2411.16833"
+code = "https://github.com/UVA-Computer-Vision-Lab/ovmono3d"
+project = "https://uva-computer-vision-lab.github.io/ovmono3d/"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2025accelerating3dphotoacousticcomputed]
+title = "Accelerating 3D Photoacoustic Computed Tomography with End-to-End Physics-Aware Neural Operators"
+authors = "Jiayun Wang, Yousuf Aborahama, Arya Khokhar, Yang Zhang, Chuwei Wang, Karteekeya Sastry, Julius Berner, Yilin Luo, Boris Bonev, Zongyi Li, Kamyar Azizzadenesheli, Lihong V. Wang, Anima Anandkumar"
+venue = "arXiv"
+year = 2025
+url = "https://arxiv.org/abs/2509.09894"
+pdf = "https://arxiv.org/pdf/2509.09894"
+preprint = true
+topics = ["science-medicine"]
+selected = false
+
+[wang2024beyond]
+title = "Beyond Closure Models: Learning Chaotic-Systems via Physics-Informed Neural Operators"
+authors = "Chuwei Wang, Julius Berner, Zongyi Li, Di Zhou, Jiayun Wang, Jane Bae, Anima Anandkumar"
+venue = "arXiv"
+year = 2025
+url = "https://arxiv.org/abs/2408.05177"
+pdf = "https://arxiv.org/pdf/2408.05177"
+preprint = true
+topics = ["science-medicine"]
+selected = false
+
+[wang2024lung]
+title = "Ultrasound Lung Aeration Map via Physics-Aware Neural Operators"
+authors = "Jiayun Wang, Oleksii Ostras, Masashi Sode, Bahareh Tolooshams, Zongyi Li, Kamyar Azizzadenesheli, Giammarco Pinton, Anima Anandkumar"
+venue = "arXiv"
+year = 2025
+url = "https://arxiv.org/abs/2501.01157"
+pdf = "https://arxiv.org/pdf/2501.01157"
+project = "https://pwang.pw/lungNO/"
+preprint = true
+topics = ["science-medicine"]
+selected = true
+
+[tolooshams2023neural]
+title = "Variable Sampling for Fast and Efficient Functional Ultrasound Imaging using Neural Operators"
+authors = "Bahareh Tolooshams, Lydia Lin, Thierri Callier, Jiayun Wang, Sanvi Pal, Aditi Chandrashekar, Claire M. Rabut, Sumner Norman, Kamyar Azizzadenesheli, Mikhail G. Shapiro, Charles Liu, Richard A. Andersen, Anima Anandkumar"
+venue = "bioRxiv"
+year = 2025
+url = "https://doi.org/10.1101/2025.04.16.649237"
+code = "https://github.com/neuraloperator/neuraloperator"
+preprint = true
+topics = ["science-medicine"]
+selected = false
+
+[tejas2024]
+title = "A Machine Learning Approach to Predicting Dry Eye-Related Signs, Symptoms and Diagnoses"
+authors = "Andrew D Graham, Tejasvi Kothapalli, Jiayun Wang, Jennifer Ding, Vivien Tse, Penny Asbell, Stella Yu, Meng C Lin"
+venue = "Heliyon"
+year = 2024
+url = "https://www.cell.com/heliyon/fulltext/S2405-8440(24)12052-X"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[yeh2024insight]
+title = "Insight: A Multi-Modal Diagnostic Pipeline using LLMs for Ocular Surface Disease Diagnosis"
+authors = "Chun-Hsiao Yeh, Jiayun Wang, Andrew D. Graham, Andrea J. Liu, Bo Tan, Yubei Chen, Yi Ma, Meng C. Lin"
+venue = "MICCAI"
+year = 2024
+url = "https://papers.miccai.org/miccai-2024/413-Paper0298.html"
+pdf = "https://arxiv.org/pdf/2410.00292"
+project = "https://danielchyeh.github.io/MDPipe/"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[gutpa2024]
+title = "Multi-Modal Self-Supervised Learning for Surgical Feedback Effectiveness Assessment"
+authors = "Arushi Gupta, Rafal Kocielnik, Jiayun Wang, Firdavs Nasriddinov, Cherine Yang, Elyssa Wong, Anima Anandkumar, Andrew J Hung"
+venue = "ML4H"
+year = 2024
+url = "https://arxiv.org/abs/2411.10919"
+pdf = "https://arxiv.org/pdf/2411.10919"
+code = "https://github.com/arushig100/Multi-Modal-SSL-for-Surgical-Feedback-Effectiveness-Assessment"
+award = "Best Paper"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[wang2024pose]
+title = "Pose-Aware Self-Supervised Learning with Viewpoint Trajectory Regularization"
+authors = "Jiayun Wang, Yubei Chen, Stella Yu"
+venue = "ECCV"
+year = 2024
+url = "https://arxiv.org/pdf/2403.14973"
+pdf = "https://arxiv.org/pdf/2403.14973"
+code = "https://github.com/samaonline/Trajectory-Regularization-Enhances-Self-Supervised-Geometric-Representation"
+project = "https://pwang.pw/trajSSL"
+award = "Oral"
+preprint = false
+topics = ["generative-models"]
+selected = true
+
+[wang2023compact]
+title = "Compact and Optimal Deep Learning with Recurrent Parameter Generators"
+authors = "Jiayun Wang, Yubei Chen, Stella Yu, Brian Cheung, Yann LeCun"
+venue = "WACV"
+year = 2023
+url = "https://arxiv.org/pdf/2107.07110.pdf"
+pdf = "https://arxiv.org/pdf/2107.07110.pdf"
+code = "https://github.com/samaonline/Recurrent-Parameter-Generators"
+project = "https://pwang.pw/rpg.html"
+preprint = false
+topics = ["generative-models"]
+selected = true
+
+[kocielnik2023deep]
+title = "Deep Multimodal Fusion for Surgical Feedback Classification"
+authors = "Rafal Kocielnik, Elyssa Y Wong, Timothy N Chu, Lydia Lin, De-An Huang, Jiayun Wang, Anima Anandkumar, Andrew J Hung"
+venue = "ML4H"
+year = 2023
+url = "https://proceedings.mlr.press/v225/kocielnik23a.html"
+pdf = "https://arxiv.org/pdf/2312.03231"
+award = "Best Paper"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[wang2023human]
+title = "Human Reposing and Virtual Try-On from Multi-View Images"
+authors = "Jiayun Wang, Amin Kheradmand, Himanshu Arora"
+venue = "US Patent"
+year = 2023
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang20223d]
+title = "3D Shape Reconstruction from Free-Hand Sketches"
+authors = "Jiayun Wang, Jierui Lin, Qian Yu, Runtao Liu, Yubei Chen, Stella Yu"
+venue = "DIRA @ ECCV"
+year = 2022
+url = "https://arxiv.org/abs/2006.09694"
+pdf = "https://arxiv.org/pdf/2006.09694.pdf"
+code = "https://github.com/samaonline/3D-Shape-Reconstruction-from-Free-Hand-Sketches"
+award = "Spotlight"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[liu2022open]
+title = "Open Long-Tailed Recognition in a Dynamic World"
+authors = "Ziwei Liu, Zhongqi Miao, Xiaohang Zhan, Jiayun Wang, Boqing Gong, Stella Yu"
+venue = "IEEE TPAMI"
+year = 2022
+url = "https://doi.ieeecomputersociety.org/10.1109/TPAMI.2022.3200091"
+pdf = "https://arxiv.org/pdf/2208.08349.pdf"
+code = "https://github.com/zhmiao/OpenLongTailRecognition-OLTR"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2022predicting]
+title = "Predicting Demographics from Meibography Using Deep Learning"
+authors = "Jiayun Wang, Andrew D Graham, Stella Yu, Meng C Lin"
+venue = "Scientific Reports"
+year = 2022
+url = "https://www.nature.com/articles/s41598-022-18933-y"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[kothapalli2022tracking]
+title = "Tracking the Dynamics of the Tear Film Lipid Layer"
+authors = "Tejasvi Kothapalli, Charlie Shou, Jennifer Ding, Jiayun Wang, Andrew D Graham, Tatyana Svitova, Stella Yu, Meng C Lin"
+venue = "MI @ NeurIPS"
+year = 2022
+url = "https://arxiv.org/pdf/2212.03450"
+pdf = "https://arxiv.org/pdf/2212.03450"
+project = "https://easytear-dev.github.io/"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[wang2022unsupervised]
+title = "Unsupervised Scene Sketch to Photo Synthesis"
+authors = "Jiayun Wang, Sangryul Jeon, Stella Yu, Xi Zhang, Himanshu Arora, Yu Lou"
+venue = "ECCV"
+year = 2022
+url = "https://arxiv.org/pdf/2209.02834.pdf"
+pdf = "https://arxiv.org/pdf/2209.02834.pdf"
+code = "https://github.com/samaonline/Unsupervised-Scene-Sketch-to-Photo-Synthesis"
+project = "https://pwang.pw/scenesketch.html"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2021quantifying]
+title = "Quantifying meibomian gland morphology using artificial intelligence"
+authors = "Jiayun Wang, Shixuan Li, Thao N Yeh, Rudrasis Chakraborty, Andrew D Graham, Stella Yu, Meng C Lin"
+venue = "Optometry and Vision Science"
+year = 2021
+url = "https://pubmed.ncbi.nlm.nih.gov/34469930/"
+pdf = "https://escholarship.org/content/qt7745h7zm/qt7745h7zm.pdf"
+code = "https://github.com/samaonline/gland-segmentation-release"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[wang2021transformer]
+title = "Spatial Transformer for 3D Point Clouds"
+authors = "Jiayun Wang, Rudrasis Chakraborty, Stella Yu"
+venue = "IEEE TPAMI"
+year = 2021
+url = "https://arxiv.org/pdf/1906.10887.pdf"
+pdf = "https://arxiv.org/pdf/1906.10887.pdf"
+code = "https://github.com/samaonline/spatial-transformer-for-3d-point-clouds"
+project = "https://pwang.pw/spn.html"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2020orthogonal]
+title = "Orthogonal Convolutional Neural Networks"
+authors = "Jiayun Wang, Yubei Chen, Rudrasis Chakraborty, Stella Yu"
+venue = "CVPR"
+year = 2020
+url = "https://arxiv.org/pdf/1911.12207.pdf"
+pdf = "https://arxiv.org/pdf/1911.12207.pdf"
+code = "https://github.com/samaonline/Orthogonal-Convolutional-Neural-Networks"
+project = "https://pwang.pw/ocnn.html"
+preprint = false
+topics = ["generative-models"]
+selected = true
+
+[wang2019deep]
+title = "A Deep Learning Approach for Meibomian Gland Atrophy Evaluation in Meibography Images"
+authors = "Jiayun Wang, Thao N Yeh, Rudrasis Chakraborty, Stella Yu, Meng C Lin"
+venue = "Translational Vision Science & Technology"
+year = 2019
+url = "https://doi.org/10.1167/tvst.8.6.37"
+code = "https://github.com/samaonline/mg-psp"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[miao2019insights]
+title = "Insights and Approaches Using Deep Learning to Classify Wildlife"
+authors = "Zhongqi Miao, Kaitlyn M Gaynor, Jiayun Wang, Ziwei Liu, Oliver Muellerklein, Mohammad Sadegh Norouzzadeh, Alex McInturff, Rauri CK Bowie, Ran Nathan, Stella Yu, et al."
+venue = "Scientific Reports"
+year = 2019
+url = "https://www.nature.com/articles/s41598-019-44565-w"
+preprint = false
+topics = ["science-medicine"]
+selected = false
+
+[Liu_2019_CVPR]
+title = "Large-Scale Long-Tailed Recognition in an Open World"
+authors = "Ziwei Liu, Zhongqi Miao, Xiaohang Zhan, Jiayun Wang, Boqing Gong, Stella Yu"
+venue = "CVPR"
+year = 2019
+url = "https://arxiv.org/pdf/1904.05160"
+pdf = "https://arxiv.org/pdf/1904.05160"
+code = "https://github.com/zhmiao/OpenLongTailRecognition-OLTR"
+project = "https://liuziwei7.github.io/projects/LongTail.html"
+award = "Oral"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[Chakraborty_2019_CVPR_Workshops]
+title = "Sur-Real: Frechet Mean and Distance Transform for Complex-Valued Deep Learning"
+authors = "Rudrasis Chakraborty, Jiayun Wang, Stella Yu"
+venue = "PBVS @ CVPR"
+year = 2019
+url = "https://ieeexplore.ieee.org/document/9025675"
+pdf = "https://arxiv.org/pdf/1906.10048.pdf"
+code = "https://github.com/sutkarsh/cds"
+award = "Best Paper"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2018deep]
+title = "Deep Ranking Model by Large Adaptive Margin Learning for Person Re-Identification"
+authors = "Jiayun Wang, Sanping Zhou, Jinjun Wang, Qiqi Hou"
+venue = "Pattern Recognition"
+year = 2018
+url = "http://www.sciencedirect.com/science/article/pii/S0031320317303771"
+pdf = "https://arxiv.org/pdf/1707.00409"
+code = "https://github.com/samaonline/Deep-Ranking-Model-by-Large-Adaptive-Margin-Learning-for-Person-Re-identification"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[zhou2017point]
+title = "Point to Set Similarity Based Deep Feature Learning for Person Re-Identification"
+authors = "Sanping Zhou, Jinjun Wang, Jiayun Wang, Yihong Gong, Nanning Zheng"
+venue = "CVPR"
+year = 2017
+url = "https://openaccess.thecvf.com/content_cvpr_2017/html/Zhou_Point_to_Set_CVPR_2017_paper.html"
+pdf = "http://openaccess.thecvf.com/content_cvpr_2017/papers/Zhou_Point_to_Set_CVPR_2017_paper.pdf"
+preprint = false
+topics = ["generative-models"]
+selected = false
+
+[wang2017successive]
+title = "Successive Embedding and Classification loss for Aerial Image Classification"
+authors = "Jiayun Wang, Patrick Virtue, Stella Yu"
+venue = "arXiv"
+year = 2017
+url = "https://arxiv.org/abs/1712.01511"
+pdf = "https://arxiv.org/pdf/1712.01511.pdf"
+code = "https://github.com/samaonline/AIC_dualloss"
+preprint = true
+topics = ["generative-models"]
+selected = false
