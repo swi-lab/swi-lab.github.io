@@ -22,7 +22,7 @@ Learned simulators and surrogates. *Applications*: turbulence and chaotic system
 
 <h4 id="forward-models-work">Representative work</h4>
 
-- [Beyond Closure Models: Learning Chaotic Systems via Physics-Informed Neural Operators](https://arxiv.org/abs/2408.05177) — preprint; in submission to Nature Communications.
+- [Beyond Closure Models: Learning Chaotic Systems via Physics-Informed Neural Operators](https://arxiv.org/abs/2408.05177) — an end-to-end learning approach using a physics-informed neural operator without a closure model or a coarse-grid solver.
 
 
 <h3 id="inverse-problems-work">Clinical and Healthcare Data</h3>
