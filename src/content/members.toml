@@ -60,3 +60,27 @@ M.S., CSE
 Harvard University, Aug. 2025–present.
 """
 interests = "3D understanding, generative AI, embodied agents, multimodal representation learning, robotics."
+
+[aujasvit-datta]
+name = "Aujasvit Datta"
+role = "Undergrads/Visitors"
+email = "aujasvitd22@iitk.ac.in"
+image = "/people/aujasvit.jpeg"
+url = "https://aujasvit.com/"
+bio = """
+Undergraduate, EECS
+Indian Institute of Technology Kanpur
+"""
+interests = "computational imaging, generative AI, inverse problems."
+
+[ram-daftari]
+name = "Ram Daftari"
+role = "Undergrads/Visitors"
+email = "daftariram8@gmail.com"
+image = "/people/ramd.png"
+url = "https://in.linkedin.com/in/ram-daftari"
+bio = """
+Undergraduate, EECS
+Indian Institute of Technology Kanpur
+"""
+interests = "computational imaging, inverse problems."
