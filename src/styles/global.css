@@ -196,7 +196,7 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .contribution-note { font-size: 14px; color: var(--muted); }
 .publication-empty, .course-empty { font-size: 1rem; line-height: 1.8; color: var(--muted); min-height: 150px; }
 
-/* Teaching */
+/* Courses */
 .course-list { list-style: none; margin: 0; padding: 0; max-width: 900px; }
 .course { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 24px; padding-block: 20px; border-top: 1px solid var(--line); }
 .course:first-child { border-top: 0; padding-top: 0; }

@@ -15,7 +15,7 @@ All text lives in `src/content/`. Edit the files there — no code changes neede
 | `topics/*.md` | One file per research thrust on the Research page: a one-line description in Markdown, everything else in the `+++` header (see below) |
 | `members.toml` | People, grouped by `role`; optional `order` sorts within a role |
 | `news.toml` | News items, sorted by `date`; the home page shows the latest five |
-| `teaching.toml` | Courses on the Teaching page, newest `term` first (e.g. `term = "Spring 2027"`); optional `code`, `description`, `url` |
+| `courses.toml` | Courses on the Courses page, newest `term` first (e.g. `term = "Spring 2027"`); optional `code`, `description`, `url` |
 | `publications.toml` | Publications, grouped by research category on the Publications page |
 
 In the TOML lists every entry is a `[table]` whose name is its id. Each file starts with a commented example showing all fields.

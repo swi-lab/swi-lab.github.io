@@ -1,5 +1,5 @@
 # Courses. One [table] per course; the table name is a unique id.
-# Listed on the Teaching page, newest term first.
+# Listed on the Courses page, newest term first.
 # `term` is "Spring", "Summer", or "Fall" followed by the year.
 # `code` (e.g. "CS 8803"), `description`, and `url` (course website) are optional.
 

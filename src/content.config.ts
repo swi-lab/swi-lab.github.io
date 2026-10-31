@@ -84,9 +84,9 @@ const news = defineCollection({
   }),
 });
 
-// Teaching: src/content/teaching.toml, one [table] per course. Sorted by `term`, newest first.
-const teaching = defineCollection({
-  loader: file('src/content/teaching.toml'),
+// Courses: src/content/courses.toml, one [table] per course. Sorted by `term`, newest first.
+const courses = defineCollection({
+  loader: file('src/content/courses.toml'),
   schema: z.object({
     title: z.string(),
     term: z.string().regex(/^(Spring|Summer|Fall) \d{4}$/, 'term must look like "Spring 2027"'),
@@ -116,4 +116,4 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { site, pages, topics, members, news, teaching, publications };
+export const collections = { site, pages, topics, members, news, courses, publications };
