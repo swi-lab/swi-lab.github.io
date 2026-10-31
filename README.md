@@ -67,7 +67,7 @@ Entries have stable `/publications/#citation-key` links. Metadata that differs f
 
 ### Members
 
-Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site, linked from the member's name), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
+Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Undergrads/Visitors, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site, linked from the member's name), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
 
 Alumni (`role = "Alumni"`) appear as a compact list without photos or email: a one-line `bio` (their position while in the lab), plus optional `coadvisors` (shown as "co-advised with …") and `now` (current position, shown as "Now: …"). Like current members, alumni names are shown in bold in publication author lists.
 
