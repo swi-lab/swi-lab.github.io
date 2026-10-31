@@ -1,8 +1,11 @@
 ---
 import '../styles/global.css';
+import { Image, getImage } from 'astro:assets';
 import { getEntry } from 'astro:content';
 const site = (await getEntry('site', 'site'))?.data;
 if (!site) throw new Error('src/content/site.toml is missing its [site] table');
+// Link previews get a PNG copy of the logo; the header uses small WebP copies.
+const ogImage = await getImage({ src: site.logo, width: 600, format: 'png' });
 interface Props { title?: string; description?: string; }
 const { title, description = site.description } = Astro.props;
 const pageTitle = title ? `${title} · ${site.brand}` : site.brand;
@@ -25,7 +28,7 @@ const links = [
     <meta name="theme-color" content="#182735" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(site.logo, Astro.site)} />
+    <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
@@ -38,7 +41,7 @@ const links = [
     <header class="site-header">
       <div class="container header-inner">
         <a href="/" class="brand" aria-label="SWI Lab at Georgia Tech, home">
-          <img class="brand-logo" src={site.logo} alt="" width="44" height="45" />
+          <Image class="brand-logo" src={site.logo} alt="" width={44} densities={[1, 2, 3]} loading="eager" />
           <span class="brand-name">{site.name}</span>
           <span class="brand-school">{site.university}</span>
         </a>

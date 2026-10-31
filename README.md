@@ -67,7 +67,7 @@ Entries have stable `/publications/#citation-key` links. Metadata that differs f
 
 ### Members
 
-Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Undergrads/Visitors, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site, linked from the member's name), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
+Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Undergrads/Visitors, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site, linked from the member's name), `image`. Put portraits in `src/assets/people/` and set `image = "../assets/people/<file>.jpg"` (relative to `members.toml`). The build crops them to 4:5 around the centre and resizes them, so any reasonably sized photo works. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
 
 Alumni (`role = "Alumni"`) appear as a compact list without photos or email: a one-line `bio` (their position while in the lab), plus optional `coadvisors` (shown as "co-advised with …") and `now` (current position, shown as "Now: …"). Like current members, alumni names are shown in bold in publication author lists.
 
@@ -87,7 +87,7 @@ Profile sources are recorded in `members.toml`. Tian's supplied personal-site UR
 
 ### Logo and icons
 
-The logo is `public/logo.png`. Browser icons are exported from it: `public/favicon.ico` (16, 32, 48 px), `public/favicon-16x16.png`, `public/favicon-32x32.png`, and `public/apple-touch-icon.png` (180 px). Regenerate these when replacing the logo.
+The logo is `src/assets/logo.png` (set in `site.toml`); the build makes small WebP copies for the header and a PNG copy for link previews. Browser icons are exported from it: `public/favicon.ico` (16, 32, 48 px), `public/favicon-16x16.png`, `public/favicon-32x32.png`, and `public/apple-touch-icon.png` (180 px). Regenerate these when replacing the logo.
 
 ## Development
 
@@ -103,7 +103,7 @@ npm run check    # validate content and type-check
 
 Astro 7 keeps the dev server running in the background; stop it with `npx astro dev stop`.
 
-Content schemas are defined in `src/content.config.ts`; a missing or mistyped field fails `npm run check` and `npm run build` with a message naming the file. Pages are in `src/pages/`, the shared layout in `src/layouts/Base.astro`, styles in `src/styles/global.css`. Fonts in `public/fonts/` are DM Sans and Libre Caslon Display (SIL Open Font License).
+Content schemas are defined in `src/content.config.ts`; a missing or mistyped field fails `npm run check` and `npm run build` with a message naming the file. Pages are in `src/pages/`, the shared layout in `src/layouts/Base.astro`, styles in `src/styles/global.css`. Fonts in `public/fonts/` are DM Sans and Libre Caslon Display (SIL Open Font License), converted to WOFF2.
 
 ## Deployment
 

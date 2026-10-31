@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
@@ -45,7 +46,7 @@ const initials = (name: string) => name.split(' ').map(part => part[0]).join('')
             {members.filter(member => member.role === group).map(member => (
               <article class="member">
                 {member.image ? (
-                  <img class="member-photo" src={member.image} alt={member.name} width="280" height="350" loading="lazy" />
+                  <Image class="member-photo" src={member.image} alt={member.name} width={176} height={220} fit="cover" densities={[1, 2]} />
                 ) : (
                   <div class="member-photo member-initials" aria-hidden="true">{initials(member.name)}</div>
                 )}

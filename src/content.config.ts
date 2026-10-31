@@ -4,15 +4,16 @@ import { z } from 'astro/zod';
 import { glob, file } from 'astro/loaders';
 
 // Site-wide settings: src/content/site.toml, a single [site] table.
+// `logo` is a path relative to site.toml, e.g. "../assets/logo.png"; the build resizes it.
 const site = defineCollection({
   loader: file('src/content/site.toml'),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     brand: z.string(),
     expansion: z.string(),
     university: z.string(),
     universityUrl: z.string(),
-    logo: z.string(),
+    logo: image(),
     description: z.string(),
     email: z.string(),
     pi: z.string(),
@@ -59,14 +60,14 @@ const topics = defineCollection({
 // src/pages/people.astro, members within a role by `order`, then name.
 const members = defineCollection({
   loader: file('src/content/members.toml'),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     role: z.string(),
     email: z.string().optional(),
     order: z.number().optional(),
     bio: z.string().optional(),
     interests: z.string().optional(),
-    image: z.string().optional(),   // portrait under public/, e.g. /people/jiayun-wang.jpg
+    image: image().optional(),      // portrait relative to members.toml, e.g. ../assets/people/jiayun-wang.jpg
     url: z.string().optional(),     // personal website
     now: z.string().optional(),         // Alumni only: current position, e.g. "CS PhD at Stanford"
     coadvisors: z.string().optional(),  // Alumni only: e.g. "A. Anandkumar"

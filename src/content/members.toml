@@ -3,7 +3,8 @@
 # Researchers, PhD Students, Master’s Students, ...). Within a role, members are
 # sorted by the optional `order` number, then by name.
 # Optional fields: order, bio, interests, image, url (personal site; links the member's name).
-# Portraits go in public/people/ and are referenced as /people/<file>.
+# Portraits go in src/assets/people/ and are referenced as ../assets/people/<file>;
+# the build crops them to 4:5 and resizes them, so any reasonably sized photo works.
 # Each bio entry uses two lines: title or degree + program, then school, institution and years. Separate entries with a blank line.
 # Each member lists only their current position or program.
 # Alumni (role = "Alumni") are listed compactly: no email or photo; `bio` is one line
@@ -14,7 +15,7 @@ name = "Jiayun Wang"
 role = "Principal Investigator"
 email = "pjwang@gatech.edu"
 # Position confirmed by the lab (2026); interests from the lab overview.
-image = "/people/jiayun-wang.jpg"
+image = "../assets/people/jiayun-wang.jpg"
 url = "https://pwang.pw/"
 bio = """
 Assistant Professor
@@ -28,7 +29,7 @@ role = "PhD Students"
 order = 1
 email = "xsfeng@gatech.edu"
 # Profile and photo: https://xfeng01.github.io/ (matching Georgia Tech email).
-image = "/people/xinsong-feng.jpg"
+image = "../assets/people/xinsong-feng.jpg"
 url = "https://xfeng01.github.io/"
 bio = """
 Ph.D., CS
@@ -41,7 +42,7 @@ name = "Wentao Zhou"
 role = "PhD Students"
 order = 2
 email = "wentao@gatech.edu"
-image = "/people/wentao-zhou.jpeg"
+image = "../assets/people/wentao-zhou.jpeg"
 url = "https://zwt.zip/"
 bio = """
 Ph.D., CS
@@ -55,7 +56,7 @@ role = "Master’s Students"
 email = "tianxia@g.harvard.edu"
 # Bio/photo: https://github.com/TianX-IA/TianX-IA.github.io/blob/main/_pages/about.md
 # https://tianx-ia.github.io/ returned 404 on 2026-09-15; use the public GitHub profile until restored.
-image = "/people/tian-xia.jpeg"
+image = "../assets/people/tian-xia.jpeg"
 url = "https://github.com/TianX-IA"
 bio = """
 M.S., CSE
@@ -67,7 +68,7 @@ interests = "3D understanding, generative AI, embodied agents, multimodal repres
 name = "Aujasvit Datta"
 role = "Undergrads/Visitors"
 email = "aujasvitd22@iitk.ac.in"
-image = "/people/aujasvit.jpeg"
+image = "../assets/people/aujasvit.jpeg"
 url = "https://aujasvit.com/"
 bio = """
 Undergraduate, EECS
@@ -79,7 +80,7 @@ interests = "computational imaging, generative AI, inverse problems."
 name = "Ram Daftari"
 role = "Undergrads/Visitors"
 email = "daftariram8@gmail.com"
-image = "/people/ramd.png"
+image = "../assets/people/ramd.png"
 url = "https://in.linkedin.com/in/ram-daftari"
 bio = """
 Undergraduate, EECS
