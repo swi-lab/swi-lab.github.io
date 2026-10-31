@@ -1,26 +1,50 @@
 ---
-import { WAVE_ROWS, wavePath, waveOpacity } from './wave-field';
-const curves = Array.from({ length: WAVE_ROWS }, (_, row) => ({ d: wavePath(row), opacity: waveOpacity(row) }));
+import { WAVE_ROWS, FUTURE_STEPS, observationPath, curvePath, waveOpacity } from './wave-field';
+const rows = Array.from({ length: WAVE_ROWS }, (_, row) => row);
+// Each layer fades in or out over a short horizontal ramp (x1 → x2) instead of a hard edge.
+const fades = [
+  { id: 'fade-data', x1: 120, x2: 184, from: '#fff', to: '#000' },
+  { id: 'fade-model', x1: 120, x2: 176, from: '#000', to: '#fff' },
+  { id: 'fade-future', x1: 282, x2: 346, from: '#000', to: '#fff' },
+];
 ---
 <figure class="world-figure">
   <div class="world-panel">
-    <svg class="wave-field" viewBox="0 18 440 208" role="img" aria-labelledby="wave-title">
-      <title id="wave-title">Schematic of a changing physical system, represented by a family of waves.</title>
+    <svg class="wave-field" viewBox="0 18 440 212" role="img" aria-labelledby="wave-title">
+      <title id="wave-title">Sparse, noisy observations on the left resolve into a smooth family of curves, which on the right is rolled forward in time.</title>
       <defs>
-        <linearGradient id="wave-color" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id="wave-color" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="440" y2="0">
           <stop offset="0%" stop-color="#d4b16c" />
           <stop offset="55%" stop-color="#ecdcad" />
           <stop offset="100%" stop-color="#73afbc" />
         </linearGradient>
+        {fades.map(fade => <>
+          <linearGradient id={`${fade.id}-ramp`} gradientUnits="userSpaceOnUse" x1={fade.x1} y1="0" x2={fade.x2} y2="0">
+            <stop offset="0" stop-color={fade.from} />
+            <stop offset="1" stop-color={fade.to} />
+          </linearGradient>
+          <mask id={fade.id} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="244">
+            <rect x="0" y="0" width="440" height="244" fill={`url(#${fade.id}-ramp)`} />
+          </mask>
+        </>)}
       </defs>
       <g stroke="#a0acb5" stroke-opacity=".09" stroke-width=".6">
         {[44, 88, 132, 176, 220, 264, 308, 352, 396].map(x => <path d={`M${x} 18V228`} />)}
         {[44, 88, 132, 176, 220].map(y => <path d={`M12 ${y}H428`} />)}
       </g>
-      <g class="wave-lines" fill="none" stroke="url(#wave-color)" stroke-width="1.25">
-        {curves.map(curve => <path d={curve.d} opacity={curve.opacity} />)}
+      <g fill="none" stroke="url(#wave-color)" stroke-linecap="round">
+        <g class="wave-data" mask="url(#fade-data)" stroke-width="2.4">
+          {rows.map(row => <path d={observationPath(row)} opacity={waveOpacity(row)} />)}
+        </g>
+        <g class="wave-future" mask="url(#fade-future)" stroke-width="1">
+          {rows.flatMap(row => FUTURE_STEPS.map(step => <path d={curvePath(row, 0, 280, 440, step.ahead)} opacity={waveOpacity(row) * step.opacity} />))}
+        </g>
+        <g class="wave-model" mask="url(#fade-model)" stroke-width="1.25">
+          {rows.map(row => <path d={curvePath(row)} opacity={waveOpacity(row)} />)}
+        </g>
       </g>
     </svg>
+    <div class="wave-labels" aria-hidden="true"><span>observations</span><span>representation</span><span>dynamics</span></div>
     <div class="model-chain">
       <div class="chain-node"><span class="chain-name">Observations</span><span class="chain-note">Partial, noisy data</span></div>
       <div class="chain-link"><span><span aria-hidden="true">↓</span> infer</span><span><span aria-hidden="true">↑</span> generate</span></div>
@@ -32,22 +56,30 @@ const curves = Array.from({ length: WAVE_ROWS }, (_, row) => ({ d: wavePath(row)
 </figure>
 
 <script>
-  // Let the waves drift slowly. Skipped when the viewer prefers reduced motion,
-  // and paused while the figure is off screen.
-  import { wavePath } from './wave-field';
+  // Let the waves drift slowly (observations, curves and future states together).
+  // Skipped when the viewer prefers reduced motion, and paused while off screen.
+  import { FUTURE_STEPS, observationPath, curvePath } from './wave-field';
   const field = document.querySelector<SVGSVGElement>('.wave-field');
-  const paths = field ? [...field.querySelectorAll<SVGPathElement>('.wave-lines path')] : [];
+  const layer = (name: string) => field ? [...field.querySelectorAll<SVGPathElement>(`.${name} path`)] : [];
+  const data = layer('wave-data');
+  const model = layer('wave-model');
+  const future = layer('wave-future');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let frame = 0;
   let start: number | undefined;
   function draw(time: number) {
     start ??= time;
     const phase = (time - start) / 1000 * .35;
-    paths.forEach((path, row) => path.setAttribute('d', wavePath(row, phase)));
+    data.forEach((path, row) => path.setAttribute('d', observationPath(row, phase)));
+    model.forEach((path, row) => path.setAttribute('d', curvePath(row, phase)));
+    future.forEach((path, i) => {
+      const step = FUTURE_STEPS[i % FUTURE_STEPS.length];
+      path.setAttribute('d', curvePath(Math.floor(i / FUTURE_STEPS.length), phase, 280, 440, step.ahead));
+    });
     frame = requestAnimationFrame(draw);
   }
   function stop() { cancelAnimationFrame(frame); frame = 0; }
-  if (field && paths.length > 0) {
+  if (field && model.length > 0) {
     new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !reduceMotion.matches && !frame) frame = requestAnimationFrame(draw);
       else if (!entry.isIntersecting) stop();
@@ -66,7 +98,9 @@ const curves = Array.from({ length: WAVE_ROWS }, (_, row) => ({ d: wavePath(row)
     background: #1a2b38;
     color: #f2f1eb;
   }
-  .wave-field { display: block; width: 100%; height: auto; margin-bottom: 18px; }
+  .wave-field { display: block; width: 100%; height: auto; }
+  /* Columns centred under the three regions of the wave field (15%, 50%, 85% across). */
+  .wave-labels { display: grid; grid-template-columns: 30% 40% 30%; margin: 6px 0 18px; font-size: 12px; line-height: 1.4; text-align: center; color: #8fa1ae; }
   .model-chain { display: grid; gap: 2px; padding-top: 16px; border-top: 1px solid #ffffff2b; }
   .chain-node { position: relative; display: flex; align-items: baseline; gap: 8px; padding-left: 22px; line-height: 1.55; }
   .chain-node::before { content: ''; position: absolute; left: 3px; top: .5em; width: 7px; height: 7px; border: 1.5px solid #cbd6df; border-radius: 50%; background: #1a2b38; }
