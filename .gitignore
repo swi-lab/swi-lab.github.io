@@ -11,3 +11,6 @@ dist/
 
 # Local hosting metadata and tool state.
 .openai/
+
+# Local agent instructions.
+/AGENT.md
