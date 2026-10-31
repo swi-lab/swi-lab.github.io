@@ -35,7 +35,7 @@ bio = """
 Ph.D., CS
 School of CSE, Georgia Tech, 2026–present.
 """
-interests = "Diffusion language models, Agents, RL"
+interests = "Diffusion language models, agents, RL."
 
 [wentao-zhou]
 name = "Wentao Zhou"
@@ -48,7 +48,7 @@ bio = """
 Ph.D., CS
 School of CSE, Georgia Tech, 2026–present.
 """
-interests = "Computer vision"
+interests = "Computer vision."
 
 [tian-xia]
 name = "Tian Xia"
@@ -74,7 +74,7 @@ bio = """
 Undergraduate, EECS
 Indian Institute of Technology Kanpur
 """
-interests = "computational imaging, generative AI, inverse problems."
+interests = "Computational imaging, generative AI, inverse problems."
 
 [ram-daftari]
 name = "Ram Daftari"
@@ -86,7 +86,7 @@ bio = """
 Undergraduate, EECS
 Indian Institute of Technology Kanpur
 """
-interests = "computational imaging, inverse problems."
+interests = "Computational imaging, inverse problems."
 
 # Alumni: Jiayun's former mentees, listed in the order supplied by the lab.
 [duy-nguyen]

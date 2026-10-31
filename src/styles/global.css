@@ -212,6 +212,7 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .join-content .markdown p, .join-content .markdown ul { font-size: 1rem; line-height: 1.8; color: var(--muted); }
 .join-content .markdown ul { margin: 0; padding-left: 22px; display: grid; gap: 20px; }
 .join-content .markdown p + p { margin-top: 16px; }
+.join-content .markdown p + ul, .join-content .markdown ul + p { margin-top: 20px; }
 .join-content .markdown h2 + * { margin-top: 20px; }
 .join-content .markdown * + h2 { margin-top: 36px; }
 .join-content .markdown li { padding-left: 5px; }
