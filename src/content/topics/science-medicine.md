@@ -1,42 +1,43 @@
 +++
 title = "Science and Medicine"
 order = 3
+ongoing = [
+  "Shared neural operator across modalities",
+  "Ranking-aware prompt evolution for multimodal clinical diagnosis",
+  "4D brain imaging via functional ultrasound",
+]
+
+[[areas]]
+title = "Inverse problems"
+summary = "Recovering structure from partial, noisy measurements."
+tags = ["Compressed-sensing MRI", "Sparse-view CT", "Lung ultrasound", "Photoacoustic tomography", "Functional ultrasound"]
+papers = ["Jatyani2024", "datta2026resolution", "wang2024lung"]
+
+[areas.figure]
+src = "../../assets/research/nomri.webp"
+alt = "One neural operator reconstructs MRI across undersampling patterns and resolutions, where existing CNNs need a separate model per pattern."
+paper = "Jatyani2024"
+
+[[areas]]
+title = "Forward models"
+summary = "Learned simulators and surrogates."
+tags = ["Turbulence and chaotic systems", "Multiphysics PDE surrogates", "Wave and acoustic simulation", "Satellite pose estimation"]
+papers = ["wang2024beyond"]
+
+[areas.figure]
+src = "../../assets/research/coarse-graining.webp"
+alt = "Training and inference for fully resolved simulation, coarse graining with closure models, and coarse graining with neural operators."
+paper = "wang2024beyond"
+
+[[areas]]
+title = "Clinical and healthcare data"
+summary = "Multimodal diagnosis and decision support."
+tags = ["Ocular surface disease", "Surgical video and skill assessment", "Prognosis under class imbalance", "Calibrated deferral to clinicians"]
+papers = ["yeh2024insight", "gutpa2024", "lifestyle2024"]
+
+[areas.figure]
+src = "../../assets/research/surgical-feedback.webp"
+alt = "Feedback given during surgery is recorded, and its effectiveness is predicted automatically instead of annotated by hand."
+paper = "gutpa2024"
 +++
-We develop physics-informed and multimodal AI for science and medicine, spanning inverse problems, learned simulators and clinical diagnosis and support.
-<h3 id="inverse-problems-work">Inverse problems</h3>
-
-
-Recovering structure from partial, noisy measurements. *Applications*: compressed-sensing MRI, sparse-view CT, lung ultrasound, photoacoustic tomography, and functional ultrasound.
-
-<h4 id="inverse-problems-work">Representative work</h4>
-
-- [A Unified Model for Compressed Sensing MRI Across Undersampling Patterns](https://arxiv.org/abs/2410.16290) — CVPR 2025. One model across sampling conditions, resolution-agnostic.
-- [Resolution-Agnostic Neural Operators for Multi-Rate Sparse-View CT](https://arxiv.org/abs/2512.12236) — ECCV 2026. One model over a continuum of measurement rates.
-- [Ultrasound Lung Aeration Map via Physics-Aware Neural Operators](https://arxiv.org/abs/2501.01157).
-
-
-<h3 id="inverse-problems-work">Forward models</h3>
-
-
-Learned simulators and surrogates. *Applications*: turbulence and chaotic systems, multiphysics PDE surrogates, wave and acoustic simulation, and satellite pose estimation.
-
-<h4 id="forward-models-work">Representative work</h4>
-
-- [Beyond Closure Models: Learning Chaotic Systems via Physics-Informed Neural Operators](https://arxiv.org/abs/2408.05177) — an end-to-end learning approach using a physics-informed neural operator without a closure model or a coarse-grid solver.
-
-
-<h3 id="inverse-problems-work">Clinical and Healthcare Data</h3>
-
-Multimodal diagnosis and decision support. *Applications*: ocular surface disease, surgical video and skill assessment, prognosis under class imbalance, and calibrated deferral to clinicians.
-
-<h4 id="clinical-data-work">Representative work</h4>
-
-- [Insight: A Multi-Modal Diagnostic Pipeline using LLMs for Ocular Surface Disease Diagnosis](https://arxiv.org/abs/2410.00292) — MICCAI 2024.
-- [Multi-Modal Self-Supervised Learning for Surgical Feedback Effectiveness Assessment](https://arxiv.org/abs/2411.10919) — ML4H 2024 (Best Paper).
-- [Artificial Intelligence Models Utilize Lifestyle Factors to Predict Dry Eye Related Outcomes](https://www.nature.com/articles/s41598-025-96778-x) — Scientific Reports 2025.
-
-<h4 id="science-medicine-ongoing">Ongoing work</h4>
-
-- **Shared neural operator across modalities:** one trained simulator serves both the inverse and the forward direction.
-- **Ranking-aware prompt evolution for multimodal clinical diagnosis.**
-- **4D brain imaging via functional ultrasound.**
+We develop physics-informed and multimodal AI for science and medicine.

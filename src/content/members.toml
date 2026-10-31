@@ -6,6 +6,8 @@
 # Portraits go in public/people/ and are referenced as /people/<file>.
 # Each bio entry uses two lines: title or degree + program, then school, institution and years. Separate entries with a blank line.
 # Each member lists only their current position or program.
+# Alumni (role = "Alumni") are listed compactly: no email or photo; `bio` is one line
+# (their position while in the lab), plus optional `now` and `coadvisors`.
 
 [jiayun-wang]
 name = "Jiayun Wang"
@@ -60,3 +62,61 @@ M.S., CSE
 Harvard University, Aug. 2025–present.
 """
 interests = "3D understanding, generative AI, embodied agents, multimodal representation learning, robotics."
+
+# Alumni: Jiayun's former mentees, listed in the order supplied by the lab.
+[duy-nguyen]
+name = "Duy Nguyen"
+role = "Alumni"
+order = 1
+bio = "Undergraduate at Caltech"
+coadvisors = "A. Anandkumar"
+now = "Google"
+
+[arya-khokhar]
+name = "Arya Khokhar"
+role = "Alumni"
+order = 2
+bio = "Undergraduate at Caltech"
+coadvisors = "A. Anandkumar"
+now = "YC startup founder"
+
+[armeet-jatyani]
+name = "Armeet Jatyani"
+role = "Alumni"
+order = 3
+bio = "Undergraduate at Caltech"
+coadvisors = "A. Anandkumar"
+now = "SpaceXAI"
+
+[arushi-gupta]
+name = "Arushi Gupta"
+role = "Alumni"
+order = 4
+bio = "Undergraduate at Caltech"
+coadvisors = "A. Anandkumar"
+now = "CS PhD at Stanford"
+
+[aditi-chandrashekar]
+name = "Aditi Chandrashekar"
+role = "Alumni"
+order = 5
+bio = "Undergraduate at Caltech"
+coadvisors = "B. Tolooshams and A. Anandkumar"
+now = "CS PhD at NYU"
+
+# Supplied as "Kothpalli"; spelled Kothapalli in publications.toml.
+[tejasvi-kothapalli]
+name = "Tejasvi Kothapalli"
+role = "Alumni"
+order = 6
+bio = "Undergraduate at UC Berkeley"
+coadvisors = "S. Yu"
+now = "PhD at UC Berkeley"
+
+[martin-zhai]
+name = "Martin Zhai"
+role = "Alumni"
+order = 7
+bio = "Undergraduate at UC Berkeley"
+coadvisors = "S. Yu"
+now = "Master’s at Cornell University"

@@ -1,15 +1,13 @@
 +++
 title = "Agentic and Self-Improving Systems"
 order = 2
+tags = ["Evolutionary search over agent programs", "Self-play and adversarial training", "Experience memory", "Inference-time optimization under cost budgets"]
+papers = ["wang2026memex", "wang2026inference", "liu2026reward"]
+ongoing = ["Evolution via adversarial training and self-play", "Efficient recursive self-improvement for long-horizon tasks"]
+
+[figure]
+src = "../../assets/research/reward-free-agents.webp"
+alt = "A self-evolving agent loop (propose, accept or reject, select), comparing a full-reward baseline with validator-based variants that drop train and validation rewards."
+paper = "liu2026reward"
 +++
-We study evolutionary search over agent programs, self-play and adversarial training, experience memory, and inference-time optimization under cost budgets.
-
-<h4 id="agentic-systems-work">Representative work</h4>
-
-- [Memex (RL): Scaling Long-Horizon LLM Agents via Indexed Experience Memory](https://arxiv.org/abs/2603.04257) — arXiv 2026. Compresses agent working context without discarding evidence.
-- [Inference-Time Optimization with Confidence Dynamics](https://arxiv.org/abs/2605.25244) — ICML 2026.
-
-<h4 id="agentic-systems-ongoing">Ongoing</h4>
-
-- **Evolution via adversarial training and self-play.** Co-evolving a generator against a learned validator or critic so neither side needs an external reward signal.
-- **Efficient recursive self-improvement for long-horizon tasks.**
+We study agents that improve themselves.

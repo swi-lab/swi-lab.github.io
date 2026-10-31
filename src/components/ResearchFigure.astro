@@ -1,0 +1,18 @@
+---
+// A paper figure on the Research page. When its paper is not already listed
+// alongside (`papers`), the caption credits it.
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+type Ref = { collection: 'publications'; id: string };
+interface Props { figure?: { src: ImageMetadata; alt: string; paper: Ref }; papers: Ref[]; }
+const { figure, papers } = Astro.props;
+const paper = figure && !papers.some(ref => ref.id === figure.paper.id) ? (await getEntry(figure.paper))?.data : undefined;
+const link = paper && (paper.url ?? paper.pdf);
+---
+{figure && (
+  <figure class="research-figure">
+    <Image src={figure.src} alt={figure.alt} />
+    {paper && <figcaption>From {link ? <a href={link} target="_blank" rel="noopener noreferrer">{paper.title}</a> : paper.title} ({paper.venue} {paper.year})</figcaption>}
+  </figure>
+)}

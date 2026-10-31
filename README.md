@@ -12,20 +12,41 @@ All text lives in `src/content/`. Edit the files there — no code changes neede
 | `pages/home.md` | Home page intro (first paragraph is the one-line affiliation) and the "Joining the lab" blurb |
 | `pages/research.md` | Intro paragraph at the top of the Research page |
 | `pages/join.md` | Body of the Join us page (Markdown) |
-| `topics/*.md` | One file per research thrust: `title` and `order` in the `+++` header; descriptions, representative work, and ongoing projects in Markdown |
+| `topics/*.md` | One file per research thrust on the Research page: a one-line description in Markdown, everything else in the `+++` header (see below) |
 | `members.toml` | People, grouped by `role`; optional `order` sorts within a role |
 | `news.toml` | News items, sorted by `date`; the home page shows the latest five |
-| `publications.toml` | Publications, grouped by year on the Publications page |
+| `teaching.toml` | Courses on the Teaching page, newest `term` first (e.g. `term = "Spring 2027"`); optional `code`, `description`, `url` |
+| `publications.toml` | Publications, grouped by research category on the Publications page |
 
 In the TOML lists every entry is a `[table]` whose name is its id. Each file starts with a commented example showing all fields.
 
 ### Publications
 
-All entries appear on the Publications page, grouped by year.
+The Publications page has one section per `category`, newest first within each. The categories are the three Research page thrusts (`generative-models`, `agentic-systems`, `science-medicine`) plus `vision` for representation learning and computer vision. Section titles and order are set in `src/pages/publications.astro`. Lab members listed in `members.toml` are shown in bold in author lists.
 
-The Research page's representative-work lists and short explanations are edited directly in `topics/*.md`, alongside each thrust's ongoing projects. The three thrusts are `generative-models`, `agentic-systems`, and `science-medicine`.
+### Research thrusts
 
-The supplied root-level `papers.bib` and `preprints.bib` are retained as import references. The live editing source is `src/content/publications.toml`; editing a `.bib` file does not automatically change the website. The initial import includes all 34 active bibliography entries plus the Reward-Free Evolving Agents paper from the updated overview. Disabled examples without an `@` prefix were not imported. Conference acceptance follows each entry's venue, not which BibTeX file contained it.
+Each `topics/*.md` file is one thrust. The file name is its id and must match a publication `category`; the thrust then links to its filtered publication list. Representative work is listed by citation key from `publications.toml`, so titles, venues, and links come from there; an unknown key fails the build. Optional `[[areas]]` split a thrust into sub-areas, each with its own `summary`, `tags`, `figure`, and `papers` (see `science-medicine.md`).
+
+An optional `[figure]` shows one paper figure. Put the image in `src/assets/research/` (a WebP about 1600 px wide is plenty; the build optimizes it) and give its path relative to the topic file. `paper` names the paper the figure comes from; if that paper is not in the list below the figure, a caption credits it.
+
+```toml
++++
+title = "Generative and World Models"
+order = 1                                  # position on the Research page
+tags = ["Latent diffusion and flow models", "Video and 3D synthesis"]
+papers = ["wang2026unified", "wang2024pose"]   # representative work
+ongoing = ["Agentic physics-aware world models"]
+
+[figure]
+src = "../../assets/research/univl.webp"
+alt = "What the figure shows, for screen readers"
+paper = "wang2026unified"
++++
+We learn priors over images, video, 3D, and language.
+```
+
+The live editing source is `src/content/publications.toml`. The root-level `papers.bib` and `preprints.bib` are kept only as the original import; editing them does not change the website.
 
 ```toml
 [wang2026world]
@@ -33,20 +54,22 @@ title = "Paper title"
 authors = "A. Author, B. Author, Jiayun Wang"
 venue = "CVPR"
 year = 2026
-url = "https://arxiv.org/abs/..."
-code = "https://github.com/..."        # optional
+category = "generative-models"
+url = "https://arxiv.org/abs/..."      # optional; the title links here
 pdf = "https://arxiv.org/pdf/..."      # optional
+code = "https://github.com/..."        # optional
 project = "https://example.com/"       # optional project website
 award = "Oral"                        # optional
-preprint = false                      # true only for work not yet published/accepted
-topics = ["generative-models", "science-medicine"] # optional editorial tags
+preprint = true                       # only for work not yet published/accepted
 ```
 
-`url` is optional when no public paper link is available. Only add PDFs and images that exist; the original bibliography's relative asset names are not bundled with the site. Entries have stable `/publications/#citation-key` links. Corrected metadata is documented beside the relevant TOML entries.
+Entries have stable `/publications/#citation-key` links. Metadata that differs from the `.bib` files is documented beside the relevant TOML entries.
 
 ### Members
 
 Roles are shown in a fixed order (set in `src/pages/people.astro`): Principal Investigator, Postdoctoral Researchers, PhD Students, Master’s Students, Undergraduate Students, Visiting Students, Alumni. Optional fields: `order` (position within a role), `bio`, `interests` (up to five keywords), `url` (personal site, linked from the member's name), `image`. Put portraits in `public/people/` and set `image = "/people/<file>.jpg"`. Without an image the People page shows the member's initials. Empty `bio` and `interests` are omitted.
+
+Alumni (`role = "Alumni"`) appear as a compact list without photos or email: a one-line `bio` (their position while in the lab), plus optional `coadvisors` (shown as "co-advised with …") and `now` (current position, shown as "Now: …"). Like current members, alumni names are shown in bold in publication author lists.
 
 Use a multiline TOML string for `bio`. Each entry has the degree and field on the first line and the institution and year on the second. Separate entries with a blank line:
 

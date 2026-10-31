@@ -1,10 +1,17 @@
 ---
 import { getCollection, getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import PaperList from '../components/PaperList.astro';
+import ResearchFigure from '../components/ResearchFigure.astro';
 const intro = await getEntry('pages', 'research');
 const { Content: Intro } = intro ? await render(intro) : { Content: null };
 const topics = (await getCollection('topics')).sort((a, b) => a.data.order - b.data.order);
 const rendered = await Promise.all(topics.map(async topic => ({ topic, Content: (await render(topic)).Content })));
+// Topic ids double as Publications categories, so each thrust links to its filtered list.
+const publications = await getCollection('publications');
+const paperCount = (topic: string) => publications.filter(paper => paper.data.category === topic).length;
+// Sub-areas get anchors like "science-medicine-inverse-problems".
+const areaId = (topic: string, title: string) => `${topic}-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
 ---
 <Base title="Research" description="Generative and world models, agentic and self-improving systems, and science and medicine: research and representative work at SWI Lab, Georgia Tech.">
   <div class="container">
@@ -14,13 +21,34 @@ const rendered = await Promise.all(topics.map(async topic => ({ topic, Content: 
     </header>
 
     {rendered.map(({ topic, Content }) => (
-        <section id={topic.id} class="research-section section-anchor">
+      <section id={topic.id} class="research-section section-anchor">
+        <div class="research-heading">
           <h2>{topic.data.title}</h2>
-          <div class="research-body">
-            {topic.data.tags.length > 0 && <ul class="tag-list" aria-label="Keywords">{topic.data.tags.map(tag => <li>{tag}</li>)}</ul>}
-            <div class="research-description"><Content /></div>
-          </div>
-        </section>
+          {topics.length > 1 && <ul class="research-jump" aria-label="Other research directions">
+            {topics.filter(other => other.id !== topic.id).map(other => <li><a href={`#${other.id}`}>{other.data.title}</a></li>)}
+          </ul>}
+        </div>
+        <div class="research-body">
+          <div class="research-description"><Content /></div>
+          {topic.data.tags.length > 0 && <ul class="keyword-list" aria-label="Keywords">{topic.data.tags.map(tag => <li>{tag}</li>)}</ul>}
+          <ResearchFigure figure={topic.data.figure} papers={topic.data.papers} />
+          {topic.data.areas.map(area => (
+            <div class="research-area" id={areaId(topic.id, area.title)}>
+              <h3>{area.title}{area.summary && <span>{area.summary}</span>}</h3>
+              {area.tags.length > 0 && <ul class="keyword-list" aria-label="Applications">{area.tags.map(tag => <li>{tag}</li>)}</ul>}
+              <ResearchFigure figure={area.figure} papers={area.papers} />
+              <PaperList papers={area.papers} />
+            </div>
+          ))}
+          {topic.data.papers.length > 0 && <h3 class="research-label">Representative work</h3>}
+          <PaperList papers={topic.data.papers} />
+          {topic.data.ongoing.length > 0 && <>
+            <h3 class="research-label">Ongoing</h3>
+            <ul class="research-ongoing">{topic.data.ongoing.map(item => <li>{item}</li>)}</ul>
+          </>}
+          {paperCount(topic.id) > 0 && <a class="section-more research-more" href={`/publications/#${topic.id}`}>All {paperCount(topic.id)} publications</a>}
+        </div>
+      </section>
     ))}
 
     <div class="research-bottom"><a href="/publications/">All publications</a><a href="/join/">Join us</a></div>

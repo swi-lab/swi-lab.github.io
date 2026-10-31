@@ -1,38 +1,61 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+
+// Sections appear in this order; the first three are the Research page thrusts.
+// `label` is the shorter name used on the filter tabs.
+const categories = [
+  { id: 'generative-models', title: 'Generative and World Models', label: 'Generative & World Models' },
+  { id: 'agentic-systems', title: 'Agentic and Self-Improving Systems', label: 'Agentic Systems' },
+  { id: 'science-medicine', title: 'Science and Medicine', label: 'Science & Medicine' },
+  { id: 'vision', title: 'Representation Learning and Computer Vision', label: 'Computer Vision' },
+];
+
 const publications = (await getCollection('publications'))
   .map(entry => ({ id: entry.id, ...entry.data }))
   .sort((a, b) => b.year - a.year || Number(a.preprint) - Number(b.preprint) || a.title.localeCompare(b.title));
-const years = [...new Set(publications.map(paper => paper.year))].sort((a, b) => b - a);
+const groups = categories
+  .map(category => ({ ...category, papers: publications.filter(paper => paper.category === category.id) }))
+  .filter(group => group.papers.length > 0);
 const hasEqualContribution = publications.some(paper => paper.authors.includes('*'));
+// Lab members' names are shown in bold in author lists.
+const members = new Set((await getCollection('members')).map(member => member.data.name));
 ---
 <Base title="Publications" description="Publications from SWI Lab at Georgia Tech.">
   <div class="container">
-    <header class="page-heading page-heading-simple"><h1>Publications</h1></header>
+    <header class="page-heading-simple">
+      <h1>Publications</h1>
+      {groups.length > 1 && <nav class="publication-filter" aria-label="Filter by category">
+        <a href="#" aria-current="true">All<span>{publications.length}</span></a>
+        {groups.map(group => <a href={`#${group.id}`}>{group.label}<span>{group.papers.length}</span></a>)}
+      </nav>}
+    </header>
     <div class="page-content">
-      {publications.length > 0 ? years.map(year => (
-        <section class="publication-year" aria-labelledby={`publications-${year}`}>
-          <h2 id={`publications-${year}`}>{year}</h2>
-          {publications.filter(paper => paper.year === year).map(paper => (
-            <article class="publication" id={paper.id}>
-              {paper.image && <img src={paper.image} alt="" loading="lazy" />}
-              <div>
-                <h3>{paper.url ? <a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a> : paper.title}</h3>
-                <p>{paper.authors}</p>
-                <p>
-                  {paper.venue}{paper.preprint && ' preprint'}, {paper.year}
-                  {paper.award && <span class="publication-award"> · {paper.award}</span>}
+      {groups.length > 0 ? groups.map(group => (
+        <section id={group.id} class="publication-group section-anchor">
+          <h2 class="publication-group-heading">{group.title}</h2>
+          {group.papers.map(paper => {
+            const link = paper.url ?? paper.pdf;
+            return (
+              <article class="publication" id={paper.id}>
+                <p class="publication-venue">
+                  <span>{paper.venue}</span>
+                  <span class="publication-year">{paper.year}{paper.award && <> · <span class="publication-award">{paper.award}</span></>}</span>
                 </p>
-                {(paper.url || paper.pdf || paper.code || paper.project) && <div class="publication-links">
-                  {paper.url && paper.url !== paper.pdf && paper.url !== paper.project && <a href={paper.url} target="_blank" rel="noopener noreferrer">Paper</a>}
-                  {paper.pdf && <a href={paper.pdf} target="_blank" rel="noopener noreferrer">PDF</a>}
-                  {paper.code && <a href={paper.code} target="_blank" rel="noopener noreferrer">Code</a>}
-                  {paper.project && <a href={paper.project} target="_blank" rel="noopener noreferrer">Project</a>}
-                </div>}
-              </div>
-            </article>
-          ))}
+                <div>
+                  <h3>{link ? <a href={link} target="_blank" rel="noopener noreferrer">{paper.title}</a> : paper.title}</h3>
+                  <p class="publication-authors">
+                    {paper.authors.split(', ').map((author, i) => <>{i > 0 && ', '}{members.has(author.replace(/\*$/, '')) ? <strong>{author}</strong> : author}</>)}
+                    {(paper.pdf && paper.pdf !== link || paper.code || paper.project) && <span class="publication-links">
+                      {paper.pdf && paper.pdf !== link && <a href={paper.pdf} target="_blank" rel="noopener noreferrer">PDF</a>}
+                      {paper.code && <a href={paper.code} target="_blank" rel="noopener noreferrer">Code</a>}
+                      {paper.project && <a href={paper.project} target="_blank" rel="noopener noreferrer">Project</a>}
+                    </span>}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </section>
       )) : <p class="publication-empty">Publications will be listed here.</p>}
       {hasEqualContribution && <p class="contribution-note">* Equal contribution.</p>}
@@ -40,9 +63,20 @@ const hasEqualContribution = publications.some(paper => paper.authors.includes('
   </div>
 </Base>
 
-<style>
-  .publication { scroll-margin-top: 6rem; }
-  .publication-award { color: var(--gold); font-weight: 600; }
-  .publication-links { flex-wrap: wrap; row-gap: 8px; }
-  .contribution-note { color: var(--muted); font-size: 14px; }
-</style>
+<script>
+  // Filter tabs: show one category (kept in the URL hash) or all. Without JS the tabs jump to sections.
+  const tabs = document.querySelectorAll<HTMLAnchorElement>('.publication-filter a');
+  const groups = document.querySelectorAll<HTMLElement>('.publication-group');
+  function show(id: string) {
+    const selected = [...groups].some(group => group.id === id) ? id : '';
+    groups.forEach(group => { group.hidden = selected !== '' && group.id !== selected; });
+    tabs.forEach(tab => tab.setAttribute('aria-current', String(tab.hash.slice(1) === selected)));
+  }
+  tabs.forEach(tab => tab.addEventListener('click', event => {
+    event.preventDefault();
+    const id = tab.hash.slice(1);
+    history.replaceState(null, '', id ? `#${id}` : location.pathname);
+    show(id);
+  }));
+  show(location.hash.slice(1));
+</script>

@@ -12,6 +12,7 @@ const links = [
   { href: '/research/', label: 'Research' },
   { href: '/people/', label: 'People' },
   { href: '/publications/', label: 'Publications' },
+  { href: '/teaching/', label: 'Teaching' },
   { href: '/join/', label: 'Join us' },
 ];
 ---
@@ -55,6 +56,9 @@ const links = [
       </div>
       <div class="container footer-bottom"><span>© {new Date().getFullYear()} {site.name}</span><a href={`mailto:${site.email}`}>{site.email}</a></div>
     </footer>
+    <button class="back-to-top" type="button" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
       const nav = document.querySelector<HTMLElement>('#main-nav');
@@ -67,6 +71,16 @@ const links = [
       document.addEventListener('keydown', event => { if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') { closeMenu(); toggle.focus(); } });
       nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
       window.matchMedia('(min-width: 821px)').addEventListener('change', closeMenu);
+
+      // Back-to-top button: appears after scrolling one screen down.
+      const backToTop = document.querySelector<HTMLButtonElement>('.back-to-top');
+      function updateBackToTop() { backToTop?.classList.toggle('is-visible', window.scrollY > window.innerHeight); }
+      window.addEventListener('scroll', updateBackToTop, { passive: true });
+      updateBackToTop();
+      backToTop?.addEventListener('click', () => {
+        document.querySelector<HTMLElement>('.brand')?.focus({ preventScroll: true });
+        window.scrollTo({ top: 0 });
+      });
     </script>
   </body>
 </html>

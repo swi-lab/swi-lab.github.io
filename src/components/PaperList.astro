@@ -1,0 +1,22 @@
+---
+// Compact "venue year — title" rows for papers referenced from a research topic.
+import { getEntries } from 'astro:content';
+interface Props { papers: { collection: 'publications'; id: string }[]; }
+const papers = await getEntries(Astro.props.papers);
+---
+{papers.length > 0 && (
+  <ul class="paper-list">
+    {papers.map(({ data: paper }) => {
+      const link = paper.url ?? paper.pdf;
+      return (
+        <li>
+          <span class="paper-venue">{paper.venue} <span>{paper.year}</span></span>
+          <span>
+            {link ? <a href={link} target="_blank" rel="noopener noreferrer">{paper.title}</a> : paper.title}
+            {paper.award && <span class="paper-award">{paper.award}</span>}
+          </span>
+        </li>
+      );
+    })}
+  </ul>
+)}

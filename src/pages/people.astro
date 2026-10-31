@@ -24,7 +24,20 @@ const initials = (name: string) => name.split(' ').map(part => part[0]).join('')
   <div class="container">
     <header class="page-heading-simple"><h1>People</h1></header>
     <div class="page-content">
-      {members.length > 0 ? groups.map(group => (
+      {members.length > 0 ? groups.map(group => group === 'Alumni' ? (
+        <section class="member-group">
+          <h2>{group}</h2>
+          <ul class="alumni-list">
+            {members.filter(member => member.role === group).map(alum => (
+              <li class="alum">
+                <h3>{alum.url ? <a href={alum.url} target="_blank" rel="noopener noreferrer">{alum.name}</a> : alum.name}</h3>
+                {(alum.bio || alum.coadvisors) && <p>{[alum.bio, alum.coadvisors && `co-advised with ${alum.coadvisors}`].filter(Boolean).join(', ')}</p>}
+                {alum.now && <p class="alum-now"><span>Now:</span> {alum.now}</p>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : (
         <section class:list={['member-group', { 'member-group-pi': group === 'Principal Investigator' }]}>
           <h2>{group}</h2>
           <div class="members-grid">
@@ -38,7 +51,7 @@ const initials = (name: string) => name.split(' ').map(part => part[0]).join('')
                 <div class="member-info">
                   <header class="member-heading">
                     <h3>{member.url ? <a href={member.url} target="_blank" rel="noopener noreferrer">{member.name}</a> : member.name}</h3>
-                    <a class="member-email" href={`mailto:${member.email}`}>{member.email}</a>
+                    {member.email && <a class="member-email" href={`mailto:${member.email}`}>{member.email}</a>}
                   </header>
                   {member.bio && <div class="member-bio">
                     {member.bio.trim().split(/\n\s*\n/).map(entry => <p>{entry}</p>)}

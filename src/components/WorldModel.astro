@@ -1,13 +1,6 @@
 ---
-const curves = Array.from({ length: 22 }, (_, row) => {
-  const points = Array.from({ length: 101 }, (_, col) => {
-    const x = col * 4.4;
-    const envelope = Math.exp(-Math.pow((x - 234) / 124, 2));
-    const y = 54 + row * 6.8 + Math.sin(x / 39 + row * .19) * envelope * (23 + 17 * Math.sin(row / 7));
-    return `${col === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(' ');
-  return { d: points, opacity: .22 + .64 * Math.sin((row + 1) / 24 * Math.PI) };
-});
+import { WAVE_ROWS, wavePath, waveOpacity } from './wave-field';
+const curves = Array.from({ length: WAVE_ROWS }, (_, row) => ({ d: wavePath(row), opacity: waveOpacity(row) }));
 ---
 <figure class="world-figure">
   <div class="world-panel">
@@ -24,21 +17,44 @@ const curves = Array.from({ length: 22 }, (_, row) => {
         {[44, 88, 132, 176, 220, 264, 308, 352, 396].map(x => <path d={`M${x} 18V228`} />)}
         {[44, 88, 132, 176, 220].map(y => <path d={`M12 ${y}H428`} />)}
       </g>
-      <g fill="none" stroke="url(#wave-color)" stroke-width="1.25">
+      <g class="wave-lines" fill="none" stroke="url(#wave-color)" stroke-width="1.25">
         {curves.map(curve => <path d={curve.d} opacity={curve.opacity} />)}
       </g>
     </svg>
-    <div class="model-diagram">
-      <div class="diagram-node">Observations<span>Measurements<br />and images</span></div>
-      <div class="diagram-arrows">
-        <span>infer <span aria-hidden="true">→</span></span>
-        <span><span aria-hidden="true">←</span> generate</span>
-      </div>
-      <div class="diagram-node model-node">World model<span>Structure<br />and dynamics</span></div>
+    <div class="model-chain">
+      <div class="chain-node"><span class="chain-name">Observations</span><span class="chain-note">Partial, noisy data</span></div>
+      <div class="chain-link"><span><span aria-hidden="true">↓</span> infer</span><span><span aria-hidden="true">↑</span> generate</span></div>
+      <div class="chain-node chain-model"><span class="chain-name">Representation</span><span class="chain-note">Underlying system</span></div>
+      <div class="chain-link"><span><span aria-hidden="true">↓</span> simulate</span></div>
+      <div class="chain-node"><span class="chain-name">Dynamics</span><span class="chain-note">How it evolves</span></div>
     </div>
   </div>
-  <figcaption>Forward simulation and inverse inference</figcaption>
 </figure>
+
+<script>
+  // Let the waves drift slowly. Skipped when the viewer prefers reduced motion,
+  // and paused while the figure is off screen.
+  import { wavePath } from './wave-field';
+  const field = document.querySelector<SVGSVGElement>('.wave-field');
+  const paths = field ? [...field.querySelectorAll<SVGPathElement>('.wave-lines path')] : [];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0;
+  let start: number | undefined;
+  function draw(time: number) {
+    start ??= time;
+    const phase = (time - start) / 1000 * .35;
+    paths.forEach((path, row) => path.setAttribute('d', wavePath(row, phase)));
+    frame = requestAnimationFrame(draw);
+  }
+  function stop() { cancelAnimationFrame(frame); frame = 0; }
+  if (field && paths.length > 0) {
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !reduceMotion.matches && !frame) frame = requestAnimationFrame(draw);
+      else if (!entry.isIntersecting) stop();
+    }).observe(field);
+    reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) stop(); });
+  }
+</script>
 
 <style>
   .world-figure {
@@ -50,27 +66,22 @@ const curves = Array.from({ length: 22 }, (_, row) => {
     background: #1a2b38;
     color: #f2f1eb;
   }
-  .wave-field { display: block; width: 100%; height: auto; margin-bottom: 20px; }
-  .model-diagram {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 86px minmax(0, 1fr);
-    align-items: center;
-    gap: 10px;
-    padding-top: 20px;
-    border-top: 1px solid #ffffff35;
-  }
-  .diagram-node { font-size: 16px; font-weight: 500; line-height: 1.4; }
-  .diagram-node > span { display: block; margin-top: 8px; font-size: 13px; font-weight: 400; line-height: 1.6; color: #cbd6df; }
-  .model-node { text-align: right; color: #e1c895; }
-  .diagram-arrows { display: grid; gap: 12px; font-size: 13px; line-height: 1.5; text-align: center; color: #d1dbe2; }
-  .diagram-arrows > span { white-space: nowrap; }
-  .diagram-arrows > span:first-child { color: #e1c895; }
-  figcaption { padding-top: 12px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .wave-field { display: block; width: 100%; height: auto; margin-bottom: 18px; }
+  .model-chain { display: grid; gap: 2px; padding-top: 16px; border-top: 1px solid #ffffff2b; }
+  .chain-node { position: relative; display: flex; align-items: baseline; gap: 8px; padding-left: 22px; line-height: 1.55; }
+  .chain-node::before { content: ''; position: absolute; left: 3px; top: .5em; width: 7px; height: 7px; border: 1.5px solid #cbd6df; border-radius: 50%; background: #1a2b38; }
+  .chain-model::before { border-color: #e1c895; background: #e1c895; box-shadow: 0 0 0 4px #e1c89526; }
+  .chain-name { flex: 0 0 8.6em; font-size: 15px; font-weight: 500; }
+  .chain-model .chain-name { color: #e1c895; }
+  .chain-note { min-width: 0; font-size: 13px; color: #a9b8c4; }
+  .chain-link { position: relative; display: flex; gap: 16px; padding: 1px 0 1px 22px; font-size: 12px; line-height: 1.5; color: #8fa1ae; }
+  .chain-link::before { content: ''; position: absolute; left: 8px; top: -7px; bottom: -7px; width: 1px; background: #ffffff38; }
+  .chain-link > span { white-space: nowrap; }
+  .chain-link [aria-hidden] { color: #e1c895; }
   @media (max-width: 380px) {
     .world-panel { padding: 16px; }
-    .model-diagram { grid-template-columns: minmax(0, 1fr) 68px minmax(0, 1fr); gap: 6px; }
-    .diagram-node { font-size: 14px; }
-    .diagram-node > span, .diagram-arrows { font-size: 12px; }
+    .chain-name { flex-basis: 8em; font-size: 14px; }
+    .chain-note { font-size: 12px; }
   }
   @media print {
     .world-figure { break-inside: avoid; print-color-adjust: exact; }

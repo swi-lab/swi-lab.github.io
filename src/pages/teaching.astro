@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+// Newest term first: "Fall 2027" > "Summer 2027" > "Spring 2027" > "Fall 2026".
+const seasons = ['Spring', 'Summer', 'Fall'];
+const termRank = (term: string) => { const [season, year] = term.split(' '); return Number(year) * 10 + seasons.indexOf(season); };
+const courses = (await getCollection('teaching'))
+  .map(entry => entry.data)
+  .sort((a, b) => termRank(b.term) - termRank(a.term) || a.title.localeCompare(b.title));
+---
+<Base title="Teaching" description="Courses taught by SWI Lab at Georgia Tech.">
+  <div class="container">
+    <header class="page-heading-simple"><h1>Teaching</h1></header>
+    <div class="page-content">
+      {courses.length > 0 ? (
+        <ul class="course-list">
+          {courses.map(course => (
+            <li class="course">
+              <span class="course-term">{course.term}</span>
+              <div>
+                <h2>{course.url ? <a href={course.url} target="_blank" rel="noopener noreferrer">{course.title}</a> : course.title}{course.code && <span class="course-code">{course.code}</span>}</h2>
+                {course.description && <p>{course.description}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : <p class="course-empty">Courses will be listed here.</p>}
+    </div>
+  </div>
+</Base>
