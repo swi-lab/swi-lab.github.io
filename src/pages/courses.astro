@@ -5,13 +5,13 @@ import Base from '../layouts/Base.astro';
 // Newest term first: "Fall 2027" > "Summer 2027" > "Spring 2027" > "Fall 2026".
 const seasons = ['Spring', 'Summer', 'Fall'];
 const termRank = (term: string) => { const [season, year] = term.split(' '); return Number(year) * 10 + seasons.indexOf(season); };
-const courses = (await getCollection('teaching'))
+const courses = (await getCollection('courses'))
   .map(entry => entry.data)
   .sort((a, b) => termRank(b.term) - termRank(a.term) || a.title.localeCompare(b.title));
 ---
-<Base title="Teaching" description="Courses taught by SWI Lab at Georgia Tech.">
+<Base title="Courses" description="Courses taught by SWI Lab at Georgia Tech.">
   <div class="container">
-    <header class="page-heading-simple"><h1>Teaching</h1></header>
+    <header class="page-heading-simple"><h1>Courses</h1></header>
     <div class="page-content">
       {courses.length > 0 ? (
         <ul class="course-list">
