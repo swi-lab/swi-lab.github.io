@@ -27,10 +27,29 @@
 [wang2026unified]
 title = "UniVL: Unified Vision-Language Embedding for Spatially Grounded Contextual Image Generation"
 authors = "Jiayun Wang, Yu Wang, Weijie Gan, Zhenting Wang, Wei Wei"
-venue = "arXiv"
+venue = "NeurIPS"
 year = 2026
 url = "https://arxiv.org/abs/2605.21611"
 pdf = "https://arxiv.org/pdf/2605.21611"
+category = "generative-models"
+
+[he2026rethinking]
+title = "Rethinking the Roles of Diffusion and Decoding: Predictive-State Flows for Parallel Language Generation"
+authors = "Jinjin He, Xinsong Feng, Lucheng Fu, Sinan Wang, Bo Zhu, Jiayun Wang"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2610.12898"
+pdf = "https://arxiv.org/pdf/2610.12898"
+preprint = true
+category = "generative-models"
+
+[feng2026denoising]
+title = "Denoising Blocks, Not Tokens: Efficient Compressed Continuous Diffusion with Branching Token Realization"
+authors = "Xinsong Feng, Peng Du, Zhizhuo Yang, Daniel M. Bikel, Jiayun Wang, Haipeng Chen"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2610.09311"
+pdf = "https://arxiv.org/pdf/2610.09311"
 preprint = true
 category = "generative-models"
 
@@ -77,6 +96,16 @@ category = "generative-models"
 
 # ── Agentic and Self-Improving Systems ──────────────────────────────────────────
 
+# Author list from the NeurIPS 2026 version; arXiv v1 (2603.07915) does not include Jiayun Wang.
+[yang2026ares]
+title = "Ares: Adaptive Reasoning Effort Selection for Efficient LLM Agents"
+authors = "Jingbo Yang, Bairu Hou, Jiayun Wang, Wei Wei, Yujia Bao, Shiyu Chang"
+venue = "NeurIPS"
+year = 2026
+url = "https://arxiv.org/abs/2603.07915"
+pdf = "https://arxiv.org/pdf/2603.07915"
+category = "agentic-systems"
+
 [wang2026inference]
 title = "Inference Time Optimization with Confidence Dynamics"
 authors = "Yu Wang, Minghao Liu, Jiayun Wang, Jinrui Huang, Ankit Shah, Wei Wei"
@@ -107,7 +136,54 @@ pdf = "https://arxiv.org/pdf/2607.14408"
 preprint = true
 category = "agentic-systems"
 
+[deng2026direct]
+title = "Direct Self-Evolving Optimization: Evolving LLMs without Challenger Training"
+authors = "Yuyang Deng, Yu Wang, Jiayun Wang"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2609.34279"
+pdf = "https://arxiv.org/pdf/2609.34279"
+preprint = true
+category = "agentic-systems"
+
+[zhou2026mutually]
+title = "Mutually Adversarial Self-Training with Evolving Data for Unified Multimodal Models"
+authors = "Wentao Zhou, Weijie Gan, Jiayun Wang"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2609.36224"
+pdf = "https://arxiv.org/pdf/2609.36224"
+preprint = true
+category = "agentic-systems"
+
+[islam2026cacherl]
+title = "CacheRL: Multi-Turn Tool-Calling Agents via Cached Rollouts and Hybrid Reward"
+authors = "Md Amirul Islam, Sumiran Thakur, Huancheng Chen, Su Min Park, Jiayun Wang, Gyuhak Kim"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2606.14179"
+pdf = "https://arxiv.org/pdf/2606.14179"
+preprint = true
+category = "agentic-systems"
+
 # ── Science and Medicine ────────────────────────────────────────────────────────
+
+[wang2026coarse]
+title = "Coarse-to-Fine 3D MRI Reconstruction via Resolution-Agnostic Neural Operators"
+authors = "Jiayun Wang*, Ram Daftari*, Weijie Gan, Valentin Duruisseaux, Ruibo Wang, Armeet Jatyani, Boris Bonev, Anima Anandkumar"
+venue = "NeurIPS"
+year = 2026
+category = "science-medicine"
+
+[xia2026ranking]
+title = "Ranking-Aware Prompt Optimization for Multimodal Clinical Diagnosis"
+authors = "Tian Xia, Minghao Liu, Yiqing Liang, Laixi Shi, Jiayun Wang"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2609.40361"
+pdf = "https://arxiv.org/pdf/2609.40361"
+preprint = true
+category = "science-medicine"
 
 [datta2026resolution]
 title = "Resolution-Agnostic Neural Operators for Multi-Rate Sparse-View CT"
