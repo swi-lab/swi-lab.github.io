@@ -145,3 +145,11 @@ order = 7
 bio = "Undergraduate at UC Berkeley"
 coadvisors = "S. Yu"
 now = "Master’s at Cornell University"
+
+[shixuan-li]
+name = "Shixuan Li"
+role = "Alumni"
+order = 8
+bio = "Undergraduate at UC Berkeley"
+coadvisors = "S. Yu"
+now = "Master’s at Brown University"
