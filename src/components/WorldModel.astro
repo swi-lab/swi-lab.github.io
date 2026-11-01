@@ -1,49 +1,37 @@
 ---
-import { WAVE_ROWS, FUTURE_STEPS, observationPath, curvePath, waveOpacity } from './wave-field';
+import { WAVE_ROWS, WAVE_LAYERS, FUTURE_STEPS, observationPath, curvePath, waveOpacity } from './wave-field';
 const rows = Array.from({ length: WAVE_ROWS }, (_, row) => row);
-// Each layer fades in or out over a short horizontal ramp (x1 → x2) instead of a hard edge.
-const fades = [
-  { id: 'fade-data', x1: 120, x2: 184, from: '#fff', to: '#000' },
-  { id: 'fade-model', x1: 120, x2: 176, from: '#000', to: '#fff' },
-  { id: 'fade-future', x1: 282, x2: 346, from: '#000', to: '#fff' },
-];
 ---
 <figure class="world-figure">
   <div class="world-panel">
-    <svg class="wave-field" viewBox="0 18 440 212" role="img" aria-labelledby="wave-title">
-      <title id="wave-title">Sparse, noisy observations on the left resolve into a smooth family of curves, which on the right is rolled forward in time.</title>
-      <defs>
-        <linearGradient id="wave-color" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="440" y2="0">
-          <stop offset="0%" stop-color="#d4b16c" />
-          <stop offset="55%" stop-color="#ecdcad" />
-          <stop offset="100%" stop-color="#73afbc" />
-        </linearGradient>
-        {fades.map(fade => <>
-          <linearGradient id={`${fade.id}-ramp`} gradientUnits="userSpaceOnUse" x1={fade.x1} y1="0" x2={fade.x2} y2="0">
-            <stop offset="0" stop-color={fade.from} />
-            <stop offset="1" stop-color={fade.to} />
-          </linearGradient>
-          <mask id={fade.id} maskUnits="userSpaceOnUse" x="0" y="0" width="440" height="244">
-            <rect x="0" y="0" width="440" height="244" fill={`url(#${fade.id}-ramp)`} />
-          </mask>
-        </>)}
-      </defs>
-      <g stroke="#a0acb5" stroke-opacity=".09" stroke-width=".6">
-        {[44, 88, 132, 176, 220, 264, 308, 352, 396].map(x => <path d={`M${x} 18V228`} />)}
-        {[44, 88, 132, 176, 220].map(y => <path d={`M12 ${y}H428`} />)}
-      </g>
-      <g fill="none" stroke="url(#wave-color)" stroke-linecap="round">
-        <g class="wave-data" mask="url(#fade-data)" stroke-width="2.4">
-          {rows.map(row => <path d={observationPath(row)} opacity={waveOpacity(row)} />)}
+    <div class="wave-stage">
+      <svg class="wave-field" viewBox="0 18 440 212" role="img" aria-labelledby="wave-title">
+        <title id="wave-title">Sparse, noisy observations on the left resolve into a smooth family of curves, which on the right is rolled forward in time.</title>
+        <defs>
+          {Object.entries(WAVE_LAYERS).map(([name, layer]) => (
+            <linearGradient id={`${name}-stroke`} gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="440" y2="0">
+              {layer.stops.map(([x, color, opacity]) => <stop offset={x / 440} stop-color={color} stop-opacity={opacity} />)}
+            </linearGradient>
+          ))}
+        </defs>
+        <g stroke="#a0acb5" stroke-opacity=".09" stroke-width=".6">
+          {[44, 88, 132, 176, 220, 264, 308, 352, 396].map(x => <path d={`M${x} 18V228`} />)}
+          {[44, 88, 132, 176, 220].map(y => <path d={`M12 ${y}H428`} />)}
         </g>
-        <g class="wave-future" mask="url(#fade-future)" stroke-width="1">
-          {rows.flatMap(row => FUTURE_STEPS.map(step => <path d={curvePath(row, 0, 280, 440, step.ahead)} opacity={waveOpacity(row) * step.opacity} />))}
+        <g class="wave-layers" fill="none" stroke-linecap="round">
+          <g stroke="url(#data-stroke)" stroke-width={WAVE_LAYERS.data.width}>
+            {rows.map(row => <path d={observationPath(row)} stroke-opacity={waveOpacity(row)} />)}
+          </g>
+          <g stroke="url(#future-stroke)" stroke-width={WAVE_LAYERS.future.width}>
+            {rows.flatMap(row => FUTURE_STEPS.map(step => <path d={curvePath(row, 0, 280, 440, step.ahead)} stroke-opacity={waveOpacity(row) * step.opacity} />))}
+          </g>
+          <g stroke="url(#model-stroke)" stroke-width={WAVE_LAYERS.model.width}>
+            {rows.map(row => <path d={curvePath(row)} stroke-opacity={waveOpacity(row)} />)}
+          </g>
         </g>
-        <g class="wave-model" mask="url(#fade-model)" stroke-width="1.25">
-          {rows.map(row => <path d={curvePath(row)} opacity={waveOpacity(row)} />)}
-        </g>
-      </g>
-    </svg>
+      </svg>
+      <canvas class="wave-canvas" aria-hidden="true"></canvas>
+    </div>
     <div class="wave-labels" aria-hidden="true"><span>observations</span><span>representation</span><span>dynamics</span></div>
     <div class="model-chain">
       <div class="chain-node"><span class="chain-name">Observations</span><span class="chain-note">Partial, noisy data</span></div>
@@ -56,34 +44,92 @@ const fades = [
 </figure>
 
 <script>
-  // Let the waves drift slowly (observations, curves and future states together).
+  // Let the waves drift slowly (observations, curves and future states together). Once moving
+  // they are drawn on the canvas laid over the SVG, whose own wave layers are then hidden:
+  // redrawing ~90 gradient-stroked SVG paths every frame is too slow on many GPUs.
   // Skipped when the viewer prefers reduced motion, and paused while off screen.
-  import { FUTURE_STEPS, observationPath, curvePath } from './wave-field';
-  const field = document.querySelector<SVGSVGElement>('.wave-field');
-  const layer = (name: string) => field ? [...field.querySelectorAll<SVGPathElement>(`.${name} path`)] : [];
-  const data = layer('wave-data');
-  const model = layer('wave-model');
-  const future = layer('wave-future');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let frame = 0;
-  let start: number | undefined;
-  function draw(time: number) {
-    start ??= time;
-    const phase = (time - start) / 1000 * .35;
-    data.forEach((path, row) => path.setAttribute('d', observationPath(row, phase)));
-    model.forEach((path, row) => path.setAttribute('d', curvePath(row, phase)));
-    future.forEach((path, i) => {
-      const step = FUTURE_STEPS[i % FUTURE_STEPS.length];
-      path.setAttribute('d', curvePath(Math.floor(i / FUTURE_STEPS.length), phase, 280, 440, step.ahead));
-    });
-    frame = requestAnimationFrame(draw);
-  }
-  function stop() { cancelAnimationFrame(frame); frame = 0; }
-  if (field && model.length > 0) {
+  import { WAVE_ROWS, WAVE_LAYERS, FUTURE_STEPS, observationPoints, curvePoints, waveOpacity } from './wave-field';
+  const stage = document.querySelector<HTMLElement>('.wave-stage');
+  const canvas = stage?.querySelector('canvas');
+  const ctx = canvas?.getContext('2d');
+  if (stage && canvas && ctx) animate(stage, canvas, ctx);
+
+  function animate(stage: HTMLElement, canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    // The SVG gradient stops, with each stop's opacity folded into its colour as hex alpha.
+    const gradient = (layer: keyof typeof WAVE_LAYERS) => {
+      const paint = ctx.createLinearGradient(0, 0, 440, 0);
+      for (const [x, color, opacity] of WAVE_LAYERS[layer].stops) {
+        paint.addColorStop(x / 440, color + Math.round(opacity * 255).toString(16).padStart(2, '0'));
+      }
+      return paint;
+    };
+    const paint = { data: gradient('data'), future: gradient('future'), model: gradient('model') };
+    const trace = (points: [number, number][]) => {
+      ctx.beginPath();
+      points.forEach(([x, y], i) => i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y));
+      ctx.stroke();
+    };
+
+    function render(phase: number) {
+      // Map the SVG's viewBox (0 18 440 212) onto the canvas. Resizing the canvas resets its
+      // state, so everything is set afresh each frame.
+      const scale = canvas.width / 440;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.setTransform(scale, 0, 0, scale, 0, -18 * scale);
+      ctx.lineCap = 'round';
+      // Observations are dots, as wide as the SVG's round-capped stroke.
+      const radius = WAVE_LAYERS.data.width / 2;
+      ctx.fillStyle = paint.data;
+      for (let row = 0; row < WAVE_ROWS; row++) {
+        ctx.globalAlpha = waveOpacity(row);
+        ctx.beginPath();
+        for (const [x, y] of observationPoints(row, phase)) {
+          ctx.moveTo(x + radius, y);
+          ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        }
+        ctx.fill();
+      }
+      ctx.strokeStyle = paint.future;
+      ctx.lineWidth = WAVE_LAYERS.future.width;
+      for (let row = 0; row < WAVE_ROWS; row++) {
+        for (const step of FUTURE_STEPS) {
+          ctx.globalAlpha = waveOpacity(row) * step.opacity;
+          trace(curvePoints(row, phase, 280, 440, step.ahead));
+        }
+      }
+      ctx.strokeStyle = paint.model;
+      ctx.lineWidth = WAVE_LAYERS.model.width;
+      for (let row = 0; row < WAVE_ROWS; row++) {
+        ctx.globalAlpha = waveOpacity(row);
+        trace(curvePoints(row, phase));
+      }
+    }
+
+    let frame = 0;
+    let phase = 0;
+    let last: number | undefined;
+    function tick(time: number) {
+      // Advance by the time since the last frame, capped so that a stalled frame or a return
+      // from off screen doesn't make the waves jump.
+      phase += Math.min(time - (last ?? time), 100) / 1000 * .35;
+      last = time;
+      render(phase);
+      stage.classList.add('is-live');
+      frame = requestAnimationFrame(tick);
+    }
+    function stop() { cancelAnimationFrame(frame); frame = 0; last = undefined; }
+
+    new ResizeObserver(([entry]) => {
+      canvas.width = Math.round(entry.contentRect.width * devicePixelRatio);
+      canvas.height = Math.round(entry.contentRect.height * devicePixelRatio);
+      if (stage.classList.contains('is-live')) render(phase);
+    }).observe(canvas);
     new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !reduceMotion.matches && !frame) frame = requestAnimationFrame(draw);
+      if (entry.isIntersecting && !reduceMotion.matches && !frame) frame = requestAnimationFrame(tick);
       else if (!entry.isIntersecting) stop();
-    }).observe(field);
+    }).observe(stage);
     reduceMotion.addEventListener('change', () => { if (reduceMotion.matches) stop(); });
   }
 </script>
@@ -98,7 +144,10 @@ const fades = [
     background: #1a2b38;
     color: #f2f1eb;
   }
+  .wave-stage { position: relative; }
   .wave-field { display: block; width: 100%; height: auto; }
+  .wave-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .is-live .wave-layers { visibility: hidden; }
   /* Columns centred under the three regions of the wave field (15%, 50%, 85% across). */
   .wave-labels { display: grid; grid-template-columns: 30% 40% 30%; margin: 6px 0 18px; font-size: 12px; line-height: 1.4; text-align: center; color: #8fa1ae; }
   .model-chain { display: grid; gap: 2px; padding-top: 16px; border-top: 1px solid #ffffff2b; }

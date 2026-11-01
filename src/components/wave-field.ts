@@ -1,7 +1,19 @@
 // Wave field on the home page, read left to right: sparse noisy samples (observations),
 // the smooth curves they come from (representation), and those curves rolled forward
-// in time (dynamics). Shared by the server render (phase 0) and the client animation.
+// in time (dynamics). Shared by the server render (an SVG at phase 0) and the client
+// animation (drawn on a canvas, which browsers repaint far more cheaply than SVG paths).
 export const WAVE_ROWS = 22;
+
+// Every layer is stroked along one colour ramp (#d4b16c → #ecdcad at x 242 → #73afbc) and
+// fades in or out over a short stretch through stop opacity. Stops are [x, colour on the
+// ramp, opacity]; x runs over the 440-unit width of the field.
+export const WAVE_LAYERS = {
+  data: { width: 2.4, stops: [[0, '#d4b16c', 1], [120, '#e0c68c', 1], [184, '#e6d29d', 0]] },
+  future: { width: 1, stops: [[282, '#d4d3b0', 0], [346, '#acc4b5', 1], [440, '#73afbc', 1]] },
+  model: { width: 1.25, stops: [[120, '#e0c68c', 0], [176, '#e5d09b', 1], [242, '#ecdcad', 1], [440, '#73afbc', 1]] },
+} as const;
+
+type Point = [number, number];
 
 function waveY(row: number, x: number, phase: number) {
   // Breathe by at most ±8% so the outer curves stay inside the frame.
@@ -17,26 +29,29 @@ function hash(row: number, col: number, salt: number) {
 }
 
 // Observations: about half of the samples on each curve, each nudged by noise.
-// Every sample is a zero-length segment drawn as a dot by the round line cap.
-export function observationPath(row: number, phase = 0) {
-  const dots = [];
+export function observationPoints(row: number, phase = 0) {
+  const points: Point[] = [];
   for (let col = 0, x = 6; x <= 184; col++, x += 8.8) {
     if (hash(row, col, 1) < .45) continue;
-    const y = waveY(row, x, phase) + (hash(row, col, 2) - .5) * 7;
-    dots.push(`M${x.toFixed(1)},${y.toFixed(1)}h0`);
+    points.push([x, waveY(row, x, phase) + (hash(row, col, 2) - .5) * 7]);
   }
-  return dots.join('');
+  return points;
 }
 
 // Representation and dynamics: the smooth curve between `from` and `to`; `ahead`
 // shifts it forward in time.
-export function curvePath(row: number, phase = 0, from = 120, to = 440, ahead = 0) {
-  const points = [];
-  for (let x = from; x <= to + .01; x += 4.4) {
-    points.push(`${points.length === 0 ? 'M' : 'L'}${x.toFixed(1)},${waveY(row, x, phase + ahead).toFixed(1)}`);
-  }
-  return points.join(' ');
+export function curvePoints(row: number, phase = 0, from = 120, to = 440, ahead = 0) {
+  const points: Point[] = [];
+  for (let x = from; x <= to + .01; x += 4.4) points.push([x, waveY(row, x, phase + ahead)]);
+  return points;
 }
+
+// In SVG every observation is a zero-length segment drawn as a dot by the round line cap.
+export const observationPath = (row: number) =>
+  observationPoints(row).map(([x, y]) => `M${x.toFixed(1)},${y.toFixed(1)}h0`).join('');
+
+export const curvePath = (...args: Parameters<typeof curvePoints>) =>
+  curvePoints(...args).map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
 
 // Future states drawn behind the curve on the right, fainter the further ahead.
 export const FUTURE_STEPS = [{ ahead: .5, opacity: .4 }, { ahead: 1, opacity: .2 }];
