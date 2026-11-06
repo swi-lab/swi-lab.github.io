@@ -19,8 +19,9 @@ const courses = (await getCollection('courses'))
             <li class="course">
               <span class="course-term">{course.term}</span>
               <div>
-                <h2>{course.url ? <a href={course.url} target="_blank" rel="noopener noreferrer">{course.title}</a> : course.title}{course.code && <span class="course-code">{course.code}</span>}</h2>
+                <h2>{course.url ? <a href={course.url} {...(course.url.startsWith('/') ? {} : { target: '_blank', rel: 'noopener noreferrer' })}>{course.title}</a> : course.title}{course.code && <span class="course-code">{course.code}</span>}</h2>
                 {course.description && <p>{course.description}</p>}
+                {course.url?.startsWith('/') && <a class="course-link" href={course.url}>Course website →</a>}
               </div>
             </li>
           ))}

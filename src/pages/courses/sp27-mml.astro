@@ -1,0 +1,274 @@
+---
+import Base from '../../layouts/Base.astro';
+
+// Course website for CSE 8803 Multimodal Machine Learning, Spring 2027.
+// Linked from the Courses page only (src/content/courses.toml); not in the main navigation.
+// Source: GT_CSE8803_Multimodal_Machine_Learning_Spring2027_v6.md (preliminary syllabus).
+
+const staff = [
+  { role: 'Instructor', name: 'Jiayun (Peter) Wang', url: 'https://pwang.pw/', email: 'pjwang@gatech.edu' },
+  { role: 'Teaching assistant', name: 'Wentao Zhou', url: 'https://zwt.zip/', email: 'wentao@gatech.edu' },
+];
+
+const logistics = [
+  { label: 'Meetings', value: 'Monday / Wednesday, 11:00 am – 12:15 pm' },
+  { label: 'Location', value: 'Skiles 202' },
+  { label: 'Office hours', value: 'Wednesday after class' },
+  { label: 'CRN', value: '35844 · 3 credit hours' },
+  { label: 'Canvas', value: 'TBA' },
+];
+
+const objectives = [
+  'Explain Transformer attention, tokenization, positional embeddings, and modality-specific representations for text, images, video, and other signals.',
+  'Compare self-supervised representation, alignment, fusion, and missing-modality approaches.',
+  'Explain autoregressive, diffusion/score-based, and continuous/discrete flow-based generation, including conditioning and evaluation.',
+  'Identify when geometric/physical priors, neural operators, and inverse-problem formulations are useful.',
+  'Understand the basic agent loop, harness/tools, memory, self-improvement, and how multimodal inputs support computer-use or robotic agents.',
+  'Design, execute, and clearly present a reproducible team research project, with rigorous research synthesis.',
+];
+
+const sessionPlan = [
+  { minutes: 10, part: 'Big-picture overview', detail: 'problem, motivation, history, and where the two papers fit' },
+  { minutes: 15, part: 'Foundational paper', detail: 'core idea and technical method' },
+  { minutes: 25, part: 'Frontier paper', detail: 'what is new, method, experiments, limitations' },
+  { minutes: 20, part: 'Comparison and class discussion', detail: '' },
+  { minutes: 5, part: 'Instructor synthesis', detail: '' },
+];
+
+type Paper = { title: string; url: string };
+type Meeting = {
+  date: string;
+  kind: 'lecture' | 'papers' | 'project' | 'none';
+  topic: string;
+  papers?: [Paper, Paper]; // [foundational, frontier]
+  note?: string;
+};
+type Week = { label: string; theme: string; meetings: Meeting[] };
+
+const arxiv = (title: string, id: string): Paper => ({ title, url: `https://arxiv.org/abs/${id}` });
+
+const schedule: Week[] = [
+  { label: 'Week 1', theme: 'Foundations: Transformers and modality encoders', meetings: [
+    { date: 'Mon Jan 11', kind: 'lecture', topic: 'Course introduction, attention, Transformer basics' },
+    { date: 'Wed Jan 13', kind: 'lecture', topic: 'Image/video/signal encoders, tokenization, positional and spatiotemporal embeddings; project examples' },
+  ] },
+  { label: 'Week 2', theme: 'Multimodal inputs and representation foundations', meetings: [
+    { date: 'Mon Jan 18', kind: 'none', topic: 'No class (MLK Day)' },
+    { date: 'Wed Jan 20', kind: 'lecture', topic: 'Paired/unpaired multimodal data, representation objectives, how to critique and present research papers', note: 'Paper sign-ups open' },
+  ] },
+  { label: 'Week 3', theme: 'Representation learning and alignment', meetings: [
+    { date: 'Mon Jan 25', kind: 'lecture', topic: 'Self-supervised, masked/contrastive objectives and cross-modal alignment', note: 'Final instructor-led session' },
+    { date: 'Wed Jan 27', kind: 'papers', topic: 'Cross-modal alignment', papers: [arxiv('CLIP', '2103.00020'), arxiv('ImageBind', '2305.05665')], note: 'First student paper session; team, topic and presentation preferences due' },
+  ] },
+  { label: 'Week 4', theme: 'Cross-modal fusion, robustness, and generative foundations', meetings: [
+    { date: 'Mon Feb 1', kind: 'papers', topic: 'Fusion and missing modalities', papers: [arxiv('MulT', '1906.00295'), arxiv('Predicting Missing Modalities with Foundation Models', '2506.03530')] },
+    { date: 'Wed Feb 3', kind: 'papers', topic: 'Latent-variable multimodal modeling', papers: [arxiv('Auto-Encoding Variational Bayes', '1312.6114'), arxiv('Multimodal Generative Models for Scalable Weakly-Supervised Learning', '1802.05335')], note: 'Project proposal due Fri Feb 5' },
+  ] },
+  { label: 'Week 5', theme: 'Autoregressive and token-based generation', meetings: [
+    { date: 'Mon Feb 8', kind: 'papers', topic: 'Tokenization and autoregressive generation', papers: [arxiv('VQ-VAE', '1711.00937'), arxiv('Taming Transformers', '2012.09841')] },
+    { date: 'Wed Feb 10', kind: 'papers', topic: 'Hierarchical image generation', papers: [arxiv('Taming Transformers', '2012.09841'), arxiv('VAR', '2404.02905')] },
+  ] },
+  { label: 'Week 6', theme: 'Diffusion and score-based generative modeling', meetings: [
+    { date: 'Mon Feb 15', kind: 'papers', topic: 'Diffusion objectives and backbones', papers: [arxiv('DDPM', '2006.11239'), arxiv('Diffusion Transformers (DiT)', '2212.09748')] },
+    { date: 'Wed Feb 17', kind: 'papers', topic: 'Latent diffusion at scale', papers: [arxiv('Latent Diffusion Models', '2112.10752'), arxiv('SDXL', '2307.01952')] },
+  ] },
+  { label: 'Week 7', theme: 'Continuous flow matching and stochastic interpolants', meetings: [
+    { date: 'Mon Feb 22', kind: 'papers', topic: 'Continuous-time generative models', papers: [arxiv('Neural Ordinary Differential Equations', '1806.07366'), arxiv('Flow Matching for Generative Modeling', '2210.02747')] },
+    { date: 'Wed Feb 24', kind: 'papers', topic: 'Interpolants and rectified flow', papers: [arxiv('Stochastic Interpolants', '2303.08797'), arxiv('Scaling Rectified Flow Transformers', '2403.03206')] },
+  ] },
+  { label: 'Week 8', theme: 'Discrete generative models and project midterm', meetings: [
+    { date: 'Mon Mar 1', kind: 'papers', topic: 'Discrete diffusion and discrete flow', papers: [arxiv('D3PM', '2107.03006'), arxiv('Flow Matching with General Discrete Paths', '2412.03487')] },
+    { date: 'Wed Mar 3', kind: 'project', topic: 'Midterm project presentations (entire session)', note: 'Written midterm report due Fri Mar 5' },
+  ] },
+  { label: 'Mar 8–12', theme: 'Spring Break', meetings: [
+    { date: 'Mon Mar 8', kind: 'none', topic: 'No class' },
+    { date: 'Wed Mar 10', kind: 'none', topic: 'No class' },
+  ] },
+  { label: 'Week 9', theme: 'Conditional generation and inverse problems', meetings: [
+    { date: 'Mon Mar 15', kind: 'papers', topic: 'Conditional guidance and control', papers: [arxiv('Classifier-Free Diffusion Guidance', '2207.12598'), arxiv('ControlNet', '2302.05543')] },
+    { date: 'Wed Mar 17', kind: 'papers', topic: 'Inverse problems and posterior sampling', papers: [arxiv('Denoising Diffusion Restoration Models (DDRM)', '2201.11793'), arxiv('Diffusion Posterior Sampling', '2209.14687')] },
+  ] },
+  { label: 'Week 10', theme: 'Unified multimodal generation and world models', meetings: [
+    { date: 'Mon Mar 22', kind: 'papers', topic: 'Unified image-text generation', papers: [arxiv('Chameleon', '2405.09818'), arxiv('Transfusion', '2408.11039')] },
+    { date: 'Wed Mar 24', kind: 'papers', topic: 'World models and action-conditioned generation', papers: [arxiv('World Models', '1803.10122'), arxiv('Genie: Generative Interactive Environments', '2402.15391')], note: 'Contrast latent predictive world models with generative interactive environments: model-based planning, need for action data, and long-horizon consistency' },
+  ] },
+  { label: 'Week 11', theme: 'Inductive biases: geometry and physical structure', meetings: [
+    { date: 'Mon Mar 29', kind: 'papers', topic: 'Physical inductive biases', papers: [arxiv('Physics-Informed Deep Learning', '1711.10561'), arxiv('Physics-Informed Diffusion Models', '2403.14404')] },
+    { date: 'Wed Mar 31', kind: 'papers', topic: 'Geometric inductive biases', papers: [arxiv('Tensor Field Networks', '1802.08219'), arxiv('Equivariant Diffusion for Molecule Generation in 3D', '2203.17003')] },
+  ] },
+  { label: 'Week 12', theme: 'Scientific and biomedical ML: neural operators and applications', meetings: [
+    { date: 'Mon Apr 5', kind: 'papers', topic: 'Neural operators for scientific fields', papers: [arxiv('Fourier Neural Operator', '2010.08895'), arxiv('Geo-FNO', '2207.05209')] },
+    { date: 'Wed Apr 7', kind: 'papers', topic: 'Scientific and biomedical multimodal models', papers: [arxiv('Towards Generalist Biomedical AI', '2307.14334'), arxiv('Capabilities of Gemini Models in Medicine (Med-Gemini)', '2404.18416')] },
+  ] },
+  { label: 'Week 13', theme: 'Multimodal agents: foundations, self-improvement, and embodied applications', meetings: [
+    { date: 'Mon Apr 12', kind: 'papers', topic: 'Agent loop, tools, and self-improvement', papers: [arxiv('ReAct', '2210.03629'), { title: 'MARS', url: 'https://research.google/pubs/mars-modular-agent-with-reflective-search-for-automated-ai-research/' }] },
+    { date: 'Wed Apr 14', kind: 'papers', topic: 'Computer-use agents and embodied agents', papers: [arxiv('OSWorld', '2404.07972'), arxiv('UI-TARS', '2501.12326')], note: 'Robotic vision-language-action agents (e.g., OpenVLA) covered in the overview; final-project logistics' },
+  ] },
+  { label: 'Week 14', theme: 'Final research project presentations', meetings: [
+    { date: 'Mon Apr 19', kind: 'project', topic: 'Final presentations, session I' },
+    { date: 'Wed Apr 21', kind: 'project', topic: 'Final presentations, session II' },
+  ] },
+  { label: 'Week 15', theme: 'Seminar synthesis and project report guidance', meetings: [
+    { date: 'Mon Apr 26', kind: 'lecture', topic: 'Course synthesis, overflow final presentation (if any), optional Q&A on the final report' },
+    { date: 'Wed Apr 28', kind: 'none', topic: 'Reading Day, no class' },
+  ] },
+  { label: 'Finals', theme: 'Final project report', meetings: [
+    { date: 'Apr 29 – May 6', kind: 'project', topic: 'Final report and reproducibility package due at the official final-assessment slot (TBD on Canvas)' },
+  ] },
+];
+
+const kindLabel = { lecture: 'Lecture', papers: 'Papers', project: 'Project', none: '' };
+
+const grading = [
+  { component: 'Participation and discussion', weight: 15, detail: 'Prepared engagement, critical questions, constructive peer feedback (not attendance alone)' },
+  { component: 'Research paper critiques', weight: 20, detail: 'Six short analytical reviews of assigned paper pairs (~1 page each): foundational contribution, frontier advance, evidence, limitations' },
+  { component: 'Paper presentation', weight: 15, detail: 'Big-picture overview, foundational paper, frontier paper, and a direct comparison (usually presented in pairs); evaluated on depth, synthesis, clarity and discussion leadership' },
+  { component: 'Semester team project', weight: 50, detail: 'Proposal 5%; midterm presentation and report 5%; final presentation 10%; final report and reproducibility 30%' },
+];
+
+const milestones = [
+  { name: 'Team formation and topic', date: 'Wed Jan 27', weight: 'Ungraded', detail: 'Team roster (normally 3–4), question/topic, preliminary dataset and model plan' },
+  { name: 'Project proposal', date: 'Fri Feb 5', weight: '5%', detail: '1–2 pages: motivation, hypothesis, related work, datasets, baselines, evaluation plan, realistic compute and risks' },
+  { name: 'Midterm project presentation', date: 'Wed Mar 3, in class', weight: '2.5%', detail: 'Working baseline, preliminary evidence, obstacles, next experiments; about 5 minutes plus 1–2 minutes of questions per team' },
+  { name: 'Midterm progress report', date: 'Fri Mar 5', weight: '2.5%', detail: '~2–3 pages: method, reproducible preliminary results, error analysis, remaining plan' },
+  { name: 'Draft results check-in', date: 'Fri Apr 16', weight: 'Ungraded', detail: 'Optional project clinic: plots or tables and presentation outline' },
+  { name: 'Final project presentation', date: 'Mon Apr 19 / Wed Apr 21', weight: '10%', detail: 'One assigned in-class slot per team: method, quantitative evidence, limitations, team contributions' },
+  { name: 'Final report and reproducibility', date: 'Official final-assessment slot (TBD)', weight: '30%', detail: 'Conference-style report: comparisons/ablations or error analysis, code/data setup, limitations, contribution statement' },
+];
+
+const projectIdeas = [
+  'Robust representation with missing modalities',
+  'Autoregressive vs. discrete diffusion for image/text tokens',
+  'Conditional diffusion/flow for medical measurements or scientific inverse problems',
+  'Physics-aware scientific signal modeling',
+  'Tool-using multimodal agents',
+  'Self-improvement strategies with held-out evaluation',
+];
+
+const sections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'format', label: 'Format' },
+  { id: 'schedule', label: 'Schedule' },
+  { id: 'grading', label: 'Grading' },
+  { id: 'project', label: 'Project' },
+  { id: 'policies', label: 'Policies' },
+];
+---
+<Base title="CSE 8803 Multimodal Machine Learning (Spring 2027)" description="CSE 8803 Multimodal Machine Learning, Spring 2027, Georgia Tech. Instructor: Jiayun (Peter) Wang.">
+  <div class="container">
+    <header class="page-heading-simple course-page-heading">
+      <p class="course-page-eyebrow"><a href="/courses/">Courses</a> · CSE 8803 · Spring 2027</p>
+      <h1>Multimodal Machine Learning</h1>
+      <p class="lead">Multimodal representation learning, continuous and discrete generative modeling, structural priors, and applications in scientific AI and multimodal agents.</p>
+    </header>
+
+    <div class="page-content course-page">
+      <dl class="course-facts">
+        {staff.map(person => (
+          <div>
+            <dt>{person.role}</dt>
+            <dd><a href={person.url} target="_blank" rel="noopener noreferrer">{person.name}</a><br /><a href={`mailto:${person.email}`}>{person.email}</a></dd>
+          </div>
+        ))}
+        {logistics.map(item => <div><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
+      </dl>
+
+      <nav class="course-toc" aria-label="On this page">
+        {sections.map(section => <a href={`#${section.id}`}>{section.label}</a>)}
+      </nav>
+
+      <section id="overview" class="course-section section-anchor" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <div class="prose">
+          <p>This course studies how machine learning systems represent, integrate, and generate information across heterogeneous modalities, including text, images, video, time series, and scientific measurements. Topics include multimodal Transformers and modality-specific encoders; self-supervised representation learning and cross-modal alignment; autoregressive generation, diffusion, continuous and discrete flow matching; and robust learning with incomplete or noisy observations. We also introduce geometric and physical inductive biases, neural operators, and applications in science, medicine, and agentic systems, including computer-use and embodied agents.</p>
+          <p>The course begins with instructor-led foundations and then runs primarily as a graduate-led research paper seminar, complemented by a semester-long team research project. There are <strong>no standalone graded programming assignments and no written exams</strong>.</p>
+        </div>
+        <h3>Prerequisites</h3>
+        <p class="course-text">Machine learning or deep learning (e.g., CS 7643 or equivalent), linear algebra, probability, and basic Python/PyTorch. Prior coursework in medical imaging, physics, or robotics is not required.</p>
+        <h3>Learning objectives</h3>
+        <p class="course-text">By the end of the course, students should be able to:</p>
+        <ol class="course-list-text">{objectives.map(objective => <li>{objective}</li>)}</ol>
+      </section>
+
+      <section id="format" class="course-section section-anchor" aria-labelledby="format-heading">
+        <h2 id="format-heading">Format</h2>
+        <ul class="course-list-text">
+          <li><strong>Weeks 1–3: instructor-led foundations.</strong> Core concepts, expectations, and how to critically read and present papers. Students sign up for presentation topics and form project teams. Monday, Jan 25 is the final instructor-led session; Wednesday, Jan 27 is the first student-led paper session.</li>
+          <li><strong>Weeks 4–13: student-led paper sessions</strong> on both Monday and Wednesday, except Wednesday, Mar 3 (midterm project presentations). Students explain the methods, derivations, evidence, and related work; the instructor moderates, adds context or corrections, and synthesizes key lessons. Unfilled slots, although unlikely, will be taught by the instructor or TA.</li>
+          <li><strong>Readings:</strong> each student-led session assigns exactly two papers, one foundational and one frontier. Presenters study and explain both; everyone else prepares the comparison for discussion.</li>
+          <li><strong>Presentations:</strong> one or two students lead each session, and every student presents at least once. Presenters must explicitly compare the two papers rather than deliver two disconnected summaries.</li>
+        </ul>
+        <h3>Paper session structure (75 minutes)</h3>
+        <ol class="course-session-plan">
+          {sessionPlan.map(step => <li><span>{step.minutes} min</span><span><strong>{step.part}</strong>{step.detail && <> — {step.detail}</>}</span></li>)}
+        </ol>
+        <p class="course-note">This is a suggested allocation, not a rigid slide-by-slide schedule.</p>
+      </section>
+
+      <section id="schedule" class="course-section section-anchor" aria-labelledby="schedule-heading">
+        <h2 id="schedule-heading">Schedule</h2>
+        <p class="course-text">Paired readings are preliminary and may change as the course progresses; final selections and presenters will be posted on Canvas. For each paper session, the first paper is foundational and the second is a frontier or later development.</p>
+        <div class="course-table-wrap">
+          <table class="course-table course-schedule">
+            <thead><tr><th scope="col">Date</th><th scope="col">Topic</th><th scope="col">Foundational paper</th><th scope="col">Frontier paper</th></tr></thead>
+            {schedule.map(week => (
+              <tbody>
+                <tr class="course-week"><th scope="rowgroup" colspan="4">{week.label}<span>{week.theme}</span></th></tr>
+                {week.meetings.map(meeting => (
+                  <tr class:list={[`is-${meeting.kind}`]}>
+                    <td class="course-date">{meeting.date}</td>
+                    <td colspan={meeting.papers ? 1 : 3}>
+                      {kindLabel[meeting.kind] && <span class="course-kind">{kindLabel[meeting.kind]}</span>}
+                      {meeting.topic}
+                      {meeting.note && <span class="course-meeting-note">{meeting.note}</span>}
+                    </td>
+                    {meeting.papers && meeting.papers.map(paper => <td><a href={paper.url} target="_blank" rel="noopener noreferrer">{paper.title}</a></td>)}
+                  </tr>
+                ))}
+              </tbody>
+            ))}
+          </table>
+        </div>
+      </section>
+
+      <section id="grading" class="course-section section-anchor" aria-labelledby="grading-heading">
+        <h2 id="grading-heading">Grading</h2>
+        <div class="course-table-wrap">
+          <table class="course-table">
+            <thead><tr><th scope="col">Component</th><th scope="col" class="course-num">Weight</th><th scope="col">Expectations</th></tr></thead>
+            <tbody>
+              {grading.map(item => <tr><td><strong>{item.component}</strong></td><td class="course-num">{item.weight}%</td><td>{item.detail}</td></tr>)}
+            </tbody>
+            <tfoot><tr><td>Total</td><td class="course-num">{grading.reduce((sum, item) => sum + item.weight, 0)}%</td><td>No separate programming assignments; no written exams</td></tr></tfoot>
+          </table>
+        </div>
+      </section>
+
+      <section id="project" class="course-section section-anchor" aria-labelledby="project-heading">
+        <h2 id="project-heading">Project</h2>
+        <p class="course-text">All students complete a team research project, normally with 3–4 students per team (two by permission). Every team should state a focused question and a credible baseline, show experimental evidence, and document reproducibility. Negative findings are acceptable if well investigated. Students are expected to demonstrate research-level synthesis, critical analysis, and strong baseline and ablation design. Project code is not a separate programming assignment.</p>
+        <h3>Milestones</h3>
+        <div class="course-table-wrap">
+          <table class="course-table">
+            <thead><tr><th scope="col">Milestone</th><th scope="col">Date</th><th scope="col" class="course-num">Weight</th><th scope="col">Deliverable</th></tr></thead>
+            <tbody>
+              {milestones.map(item => <tr><td><strong>{item.name}</strong></td><td>{item.date}</td><td class="course-num">{item.weight}</td><td>{item.detail}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        <h3>Possible projects</h3>
+        <ul class="course-list-text">{projectIdeas.map(idea => <li>{idea}</li>)}</ul>
+      </section>
+
+      <section id="policies" class="course-section section-anchor" aria-labelledby="policies-heading">
+        <h2 id="policies-heading">Policies</h2>
+        <ul class="course-list-text">
+          <li><strong>Slack days:</strong> each student has 5 slack days in total for all written assignments (paper reviews and project reports).</li>
+          <li><strong>Final assessment:</strong> the final project report is the alternative final assessment, due at the course's official final-assessment time.</li>
+          <li><strong>Academic integrity:</strong> critiques and presentations should critically analyze the evidence and be students' own work. All external datasets, figures, code, pretrained models, and substantive AI assistance must be credited or disclosed. Students are responsible for understanding and explaining submitted results.</li>
+          <li>The official grading scale, attendance, late submission, accessibility, integrity, and accommodations policies will be posted on Canvas.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</Base>

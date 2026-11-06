@@ -47,7 +47,7 @@ const links = [
         </a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu <span aria-hidden="true">☰</span></button>
         <nav id="main-nav" aria-label="Main navigation">
-          {links.map(link => <a href={link.href} class:list={[{ active: pathname === link.href }]} aria-current={pathname === link.href ? 'page' : undefined}>{link.label}</a>)}
+          {links.map(link => <a href={link.href} class:list={[{ active: pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) }]} aria-current={pathname === link.href ? 'page' : undefined}>{link.label}</a>)}
         </nav>
       </div>
     </header>

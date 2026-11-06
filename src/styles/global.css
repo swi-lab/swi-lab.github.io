@@ -205,6 +205,50 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .course h2 a:hover { color: var(--gold); }
 .course-code { margin-left: 10px; font-size: 15px; font-weight: 400; color: var(--muted); }
 .course p { margin-top: 4px; font-size: 15px; line-height: 1.7; color: var(--muted); }
+.course-link { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 500; color: var(--gold); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.course-link:hover { color: var(--ink); }
+
+/* Course website pages (src/pages/courses/) */
+.course-page-eyebrow { margin-bottom: 14px; font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.course-page-eyebrow a:hover { color: var(--gold); }
+.course-page { max-width: 960px; }
+.course-page a:not(.course-toc a) { color: var(--gold); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.course-page a:not(.course-toc a):hover { color: var(--ink); }
+.course-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px 32px; margin: 0; }
+.course-facts dt { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.course-facts dd { margin: 4px 0 0; font-size: 15px; line-height: 1.6; }
+.course-toc { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 32px; padding-block: 14px; border-block: 1px solid var(--line); font-size: 14px; font-weight: 500; }
+.course-toc a:hover { color: var(--gold); }
+.course-section { padding-top: 40px; }
+.course-section h2 { margin-bottom: 18px; }
+.course-section h3 { margin: 28px 0 10px; }
+.course-text, .course-list-text { font-size: 1rem; line-height: 1.8; color: var(--muted); }
+.course-text + .course-text, .course-text + .course-list-text { margin-top: 8px; }
+.course-list-text { margin: 0; padding-left: 22px; display: grid; gap: 10px; }
+.course-list-text li { padding-left: 5px; }
+.course-page strong { font-weight: 600; color: var(--ink); }
+.course-session-plan { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.course-session-plan li { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 16px; padding-block: 10px; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; color: var(--muted); }
+.course-session-plan li > span:first-child { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.course-note { margin-top: 10px; font-size: 14px; color: var(--muted); }
+.course-table-wrap { margin-top: 16px; overflow-x: auto; }
+.course-section .prose + h3, .course-text + .course-table-wrap { margin-top: 20px; }
+.course-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+.course-table th, .course-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.course-table th:first-child, .course-table td:first-child { padding-left: 0; }
+.course-table thead th { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom-color: var(--ink); }
+.course-table td { color: var(--muted); }
+.course-table tfoot td { font-weight: 600; color: var(--ink); border-bottom: 0; }
+.course-num { text-align: right !important; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.course-schedule { min-width: 720px; }
+.course-schedule th:nth-child(3), .course-schedule th:nth-child(4) { width: 24%; }
+.course-week th { padding-top: 22px !important; font-size: 13px; font-weight: 600; color: var(--ink); background: none; }
+.course-week th span { margin-left: 12px; font-family: var(--serif); font-size: 18px; font-weight: 400; }
+.course-date { white-space: nowrap; font-weight: 600; color: var(--ink) !important; font-variant-numeric: tabular-nums; }
+.course-kind { display: inline-block; margin-right: 8px; padding: 1px 7px; border: 1px solid var(--line); border-radius: 3px; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.course-schedule .is-project .course-kind { border-color: var(--gold); color: var(--gold); }
+.course-schedule .is-none td { font-style: italic; }
+.course-meeting-note { display: block; margin-top: 4px; font-size: 13px; color: var(--gold); }
 
 /* Join */
 .join-content { max-width: 860px; }
@@ -284,6 +328,7 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
   .research-area h3 span { display: block; margin-left: 0; }
   .research-figure img { padding: 8px; }
   .course { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .course-week th span { display: block; margin: 2px 0 0; }
 }
 @media (max-width: 380px) {
   .brand-school { display: none; }

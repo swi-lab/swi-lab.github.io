@@ -6,5 +6,6 @@
 [2027-spring-multimodal-ml]
 title = "Multimodal Machine Learning"
 term = "Spring 2027"
-description = "This course studies how machine learning systems represent, integrate, and generate information across heterogeneous modalities, including text, images, video, time series, and scientific measurements. Course emphasis: multimodal representation learning, continuous/discrete generative
-modeling, structural priors, and applications in scientific AI and multimodal agents. See preliminary syllabus at https://drive.google.com/file/d/1CgyhzYQ3nLw9Cwl1GfTNTgddEjoEAFCq/view?usp=sharing."
+code = "CSE 8803"
+url = "/courses/sp27-mml/"
+description = "This course studies how machine learning systems represent, integrate, and generate information across heterogeneous modalities, including text, images, video, time series, and scientific measurements. Course emphasis: multimodal representation learning, continuous/discrete generative modeling, structural priors, and applications in scientific AI and multimodal agents. See preliminary syllabus at https://drive.google.com/file/d/1CgyhzYQ3nLw9Cwl1GfTNTgddEjoEAFCq/view?usp=sharing."
