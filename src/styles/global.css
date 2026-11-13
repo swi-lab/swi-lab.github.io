@@ -217,6 +217,8 @@ h3 { font-size: 19px; font-weight: 600; line-height: 1.4; }
 .course-facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px 32px; margin: 0; }
 .course-facts dt { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .course-facts dd { margin: 4px 0 0; font-size: 15px; line-height: 1.6; }
+.course-contact { margin-top: 24px; padding: 14px 18px; border-left: 3px solid var(--gold); background: var(--surface); font-size: 15px; line-height: 1.7; color: var(--muted); }
+.course-page code { padding: 1px 5px; border-radius: 3px; background: var(--surface); font-size: .9em; color: var(--ink); }
 .course-toc { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 32px; padding-block: 14px; border-block: 1px solid var(--line); font-size: 14px; font-weight: 500; }
 .course-toc a:hover { color: var(--gold); }
 .course-section { padding-top: 40px; }

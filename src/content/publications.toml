@@ -70,6 +70,7 @@ title = "Human Reposing and Virtual Try-On from Multi-View Images"
 authors = "Jiayun Wang, Amin Kheradmand, Himanshu Arora"
 venue = "US Patent"
 year = 2023
+pdf = "https://pwang.pw/assets/pdf/human_reposing.pdf"
 category = "generative-models"
 
 [wang2022unsupervised]
@@ -166,6 +167,16 @@ pdf = "https://arxiv.org/pdf/2606.14179"
 preprint = true
 category = "agentic-systems"
 
+[mondal2026jhima]
+title = "JHiMA-WebRL: A Joint Hierarchical Multi-Agent Reinforcement Learning Framework for Long-Horizon Web Tasks"
+authors = "Shanka Subhra Mondal, Jiayun Wang"
+venue = "arXiv"
+year = 2026
+url = "https://arxiv.org/abs/2611.05263"
+pdf = "https://arxiv.org/pdf/2611.05263"
+preprint = true
+category = "agentic-systems"
+
 # ── Science and Medicine ────────────────────────────────────────────────────────
 
 [wang2026coarse]
@@ -173,6 +184,8 @@ title = "Coarse-to-Fine 3D MRI Reconstruction via Resolution-Agnostic Neural Ope
 authors = "Jiayun Wang*, Ram Daftari*, Weijie Gan, Valentin Duruisseaux, Ruibo Wang, Armeet Jatyani, Boris Bonev, Anima Anandkumar"
 venue = "NeurIPS"
 year = 2026
+url = "https://arxiv.org/abs/2611.14979"
+pdf = "https://arxiv.org/pdf/2611.14979"
 category = "science-medicine"
 
 [xia2026ranking]
@@ -211,6 +224,7 @@ authors = "Andrew D. Graham, Jiayun Wang, Tejasvi Kothapalli, Jennifer Ding, Hel
 venue = "Scientific Reports"
 year = 2025
 url = "https://www.nature.com/articles/s41598-025-96778-x"
+pdf = "https://pwang.pw/assets/pdf/Artificial_Intelligence_Models_Utilize_Lifestyle_F.pdf"
 category = "science-medicine"
 
 [nguyen2025flow]
@@ -263,6 +277,7 @@ year = 2025
 url = "https://doi.org/10.1101/2025.04.16.649237"
 code = "https://github.com/neuraloperator/neuraloperator"
 preprint = true
+pdf = "https://doi.org/10.1101/2025.04.16.649237"
 category = "science-medicine"
 
 [tejas2024]
@@ -271,6 +286,7 @@ authors = "Andrew D. Graham, Tejasvi Kothapalli, Jiayun Wang, Jennifer Ding, Viv
 venue = "Heliyon"
 year = 2024
 url = "https://www.cell.com/heliyon/fulltext/S2405-8440(24)12052-X"
+pdf = "https://pwang.pw/assets/pdf/eyeheliyon.pdf"
 category = "science-medicine"
 
 [yeh2024insight]
@@ -310,6 +326,7 @@ authors = "Jiayun Wang, Andrew D. Graham, Stella Yu, Meng C. Lin"
 venue = "Scientific Reports"
 year = 2022
 url = "https://www.nature.com/articles/s41598-022-18933-y"
+pdf = "https://pwang.pw/assets/pdf/2022meiboNature.pdf"
 category = "science-medicine"
 
 [kothapalli2022tracking]
@@ -339,6 +356,7 @@ venue = "Translational Vision Science & Technology"
 year = 2019
 url = "https://doi.org/10.1167/tvst.8.6.37"
 code = "https://github.com/samaonline/mg-psp"
+pdf = "https://pwang.pw/assets/pdf/2019meiboTVST.pdf"
 category = "science-medicine"
 
 [miao2019insights]
@@ -347,6 +365,7 @@ authors = "Zhongqi Miao, Kaitlyn M. Gaynor, Jiayun Wang, Ziwei Liu, Oliver Muell
 venue = "Scientific Reports"
 year = 2019
 url = "https://www.nature.com/articles/s41598-019-44565-w"
+pdf = "https://pwang.pw/assets/pdf/2019wildlifeSR.pdf"
 category = "science-medicine"
 
 # ── Representation Learning and Computer Vision ─────────────────────────────────

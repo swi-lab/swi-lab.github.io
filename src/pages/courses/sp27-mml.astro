@@ -6,9 +6,13 @@ import Base from '../../layouts/Base.astro';
 // Source: GT_CSE8803_Multimodal_Machine_Learning_Spring2027_v6.md (preliminary syllabus).
 
 const staff = [
-  { role: 'Instructor', name: 'Jiayun (Peter) Wang', url: 'https://pwang.pw/', email: 'pjwang@gatech.edu' },
-  { role: 'Teaching assistant', name: 'Wentao Zhou', url: 'https://zwt.zip/', email: 'wentao@gatech.edu' },
+  { role: 'Instructor', name: 'Jiayun (Peter) Wang', url: 'https://pwang.pw/' },
+  { role: 'Teaching assistant', name: 'Wentao Zhou', url: 'https://zwt.zip/' },
 ];
+
+// Staff email addresses are intentionally not listed: all requests go to the forum or the course inbox.
+const courseEmail = 'swilab.gatech@gmail.com';
+const emailSubject = '[CSE8803]';
 
 const logistics = [
   { label: 'Meetings', value: 'Monday / Wednesday, 11:00 am – 12:15 pm' },
@@ -121,7 +125,7 @@ const kindLabel = { lecture: 'Lecture', papers: 'Papers', project: 'Project', no
 
 const grading = [
   { component: 'Participation and discussion', weight: 15, detail: 'Prepared engagement, critical questions, constructive peer feedback (not attendance alone)' },
-  { component: 'Research paper critiques', weight: 20, detail: 'Six short analytical reviews of assigned paper pairs (~1 page each): foundational contribution, frontier advance, evidence, limitations' },
+  { component: 'Weekly paper reviews', weight: 20, detail: 'Mandatory short critical review of the assigned paper pairs each week: foundational contribution, frontier advance, evidence, limitations. The lowest three review scores are dropped' },
   { component: 'Paper presentation', weight: 15, detail: 'Big-picture overview, foundational paper, frontier paper, and a direct comparison (usually presented in pairs); evaluated on depth, synthesis, clarity and discussion leadership' },
   { component: 'Semester team project', weight: 50, detail: 'Proposal 5%; midterm presentation and report 5%; final presentation 10%; final report and reproducibility 30%' },
 ];
@@ -145,6 +149,17 @@ const projectIdeas = [
   'Self-improvement strategies with held-out evaluation',
 ];
 
+const links = {
+  honorCode: 'https://catalog.gatech.edu/policies/honor-code/',
+  calendar: 'https://registrar.gatech.edu/current-academic-calendar',
+  studentFaculty: 'https://catalog.gatech.edu/rules/21/',
+  requestAssistance: 'https://studentlife.gatech.edu/request-assistance',
+  disability: 'https://disabilityservices.gatech.edu/',
+  mentalHealth: 'https://mentalhealth.gatech.edu/',
+  berkeley: 'https://sites.google.com/view/berkeley-cs294-158-sp24/home',
+  vlm: 'https://faculty.cc.gatech.edu/~zk15/teaching/AY2026_cs8803vlm_fall/index.html',
+};
+
 const sections = [
   { id: 'overview', label: 'Overview' },
   { id: 'format', label: 'Format' },
@@ -167,11 +182,13 @@ const sections = [
         {staff.map(person => (
           <div>
             <dt>{person.role}</dt>
-            <dd><a href={person.url} target="_blank" rel="noopener noreferrer">{person.name}</a><br /><a href={`mailto:${person.email}`}>{person.email}</a></dd>
+            <dd><a href={person.url} target="_blank" rel="noopener noreferrer">{person.name}</a></dd>
           </div>
         ))}
         {logistics.map(item => <div><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
       </dl>
+
+      <p class="course-contact"><strong>Contact:</strong> post questions and requests on the course forum (preferred), or email <a href={`mailto:${courseEmail}?subject=${encodeURIComponent(`${emailSubject} `)}`}>{courseEmail}</a> with <strong>{emailSubject}</strong> in the subject line. Emails sent directly to individual course staff will be ignored.</p>
 
       <nav class="course-toc" aria-label="On this page">
         {sections.map(section => <a href={`#${section.id}`}>{section.label}</a>)}
@@ -196,6 +213,7 @@ const sections = [
           <li><strong>Weeks 1–3: instructor-led foundations.</strong> Core concepts, expectations, and how to critically read and present papers. Students sign up for presentation topics and form project teams. Monday, Jan 25 is the final instructor-led session; Wednesday, Jan 27 is the first student-led paper session.</li>
           <li><strong>Weeks 4–13: student-led paper sessions</strong> on both Monday and Wednesday, except Wednesday, Mar 3 (midterm project presentations). Students explain the methods, derivations, evidence, and related work; the instructor moderates, adds context or corrections, and synthesizes key lessons. Unfilled slots, although unlikely, will be taught by the instructor or TA.</li>
           <li><strong>Readings:</strong> each student-led session assigns exactly two papers, one foundational and one frontier. Presenters study and explain both; everyone else prepares the comparison for discussion.</li>
+          <li><strong>Weekly paper reviews:</strong> every student submits a short critical review of the assigned papers each week. Reviews are mandatory; the lowest three review scores are dropped.</li>
           <li><strong>Presentations:</strong> one or two students lead each session, and every student presents at least once. Presenters must explicitly compare the two papers rather than deliver two disconnected summaries.</li>
         </ul>
         <h3>Paper session structure (75 minutes)</h3>
@@ -262,12 +280,39 @@ const sections = [
 
       <section id="policies" class="course-section section-anchor" aria-labelledby="policies-heading">
         <h2 id="policies-heading">Policies</h2>
+
+        <h3>Deadlines and final assessment</h3>
         <ul class="course-list-text">
           <li><strong>Slack days:</strong> each student has 5 slack days in total for all written assignments (paper reviews and project reports).</li>
-          <li><strong>Final assessment:</strong> the final project report is the alternative final assessment, due at the course's official final-assessment time.</li>
-          <li><strong>Academic integrity:</strong> critiques and presentations should critically analyze the evidence and be students' own work. All external datasets, figures, code, pretrained models, and substantive AI assistance must be credited or disclosed. Students are responsible for understanding and explaining submitted results.</li>
-          <li>The official grading scale, attendance, late submission, accessibility, integrity, and accommodations policies will be posted on Canvas.</li>
+          <li><strong>Final assessment:</strong> the final project report is the alternative final assessment, due at the course's official final-assessment time (see the <a href={links.calendar} target="_blank" rel="noopener noreferrer">academic calendar</a> and <a href={links.studentFaculty} target="_blank" rel="noopener noreferrer">Student-Faculty Expectations</a>).</li>
+          <li>The official grading scale, attendance, and late-submission details will be posted on Canvas.</li>
         </ul>
+
+        <h3>Academic integrity and AI use</h3>
+        <p class="course-text">All work in this course is governed by the <a href={links.honorCode} target="_blank" rel="noopener noreferrer">Georgia Tech Academic Honor Code</a>. The following rules apply to each type of work:</p>
+        <ul class="course-list-text">
+          <li><strong>Weekly paper reviews:</strong> each review must reflect your own reading and synthesis. Do not use generative AI or LLM tools to summarize, draft, rewrite, critique, or otherwise produce any part of a review.</li>
+          <li><strong>Paper presentations and discussion materials:</strong> you may discuss the papers with others and use properly cited source material, but the slides, synthesis, and discussion questions you submit must be your own work.</li>
+          <li><strong>Project implementation:</strong> where permitted, you may use external codebases, pretrained models, tools, and AI coding assistants or agents, but every one must be attributed. Document any material AI or agent use in an <code>AGENT_USAGE.md</code> file at the root of your repository: what you used, for what purpose, which files or experiments it materially affected, and how you validated the output.</li>
+          <li><strong>Project ownership:</strong> the research question and contribution, experimental decisions, execution, interpretation, and understanding must be your team's own. You remain responsible for the correctness, licensing, and citations of everything you submit.</li>
+        </ul>
+
+        <h3>Professional and online conduct</h3>
+        <p class="course-text">Keep discussion rigorous, collegial, and respectful. Check existing forum threads before posting, and avoid language that is needlessly hostile or easy to misread. Respect your classmates' privacy: never post or share another student's personal information or work without their permission.</p>
+
+        <h3>Accommodations, illness, and emergencies</h3>
+        <p class="course-text">If you need disability-related accommodations, work with the <a href={links.disability} target="_blank" rel="noopener noreferrer">Office of Disability Services</a> and provide the appropriate accommodation notice. If a significant illness or personal emergency affects your coursework, use the Dean of Students <a href={links.requestAssistance} target="_blank" rel="noopener noreferrer">Request Assistance</a> process. Let the instructor know that you are working with the appropriate office, but do not send personal medical details or documentation to course staff.</p>
+
+        <h3>Mental health and student support</h3>
+        <p class="course-text">Georgia Tech's <a href={links.mentalHealth} target="_blank" rel="noopener noreferrer">Center for Mental Health Care &amp; Resources</a> offers counseling, crisis support, assessment, referrals, and workshops. For urgent support, call the Center at <a href="tel:+14048942575">404-894-2575</a>; after hours, the same number connects you to a counselor. In an immediate emergency, call 911 or Georgia Tech Police at <a href="tel:+14048942500">404-894-2500</a>. The 988 Suicide &amp; Crisis Lifeline is available nationally by call or text at <a href="tel:988">988</a>.</p>
+
+        <h3>Subject to change</h3>
+        <p class="course-text">This seminar covers a fast-moving research area, so the reading list and detailed schedule may change to include important new work. Any changes to papers, deadlines, or logistics will be announced on this page and through the course forum and Canvas. If a draft syllabus or template differs from this page or a Canvas assignment page, the published page takes precedence.</p>
+      </section>
+
+      <section id="acknowledgments" class="course-section section-anchor" aria-labelledby="acknowledgments-heading">
+        <h2 id="acknowledgments-heading">Acknowledgments</h2>
+        <p class="course-text">This course's structure draws on <a href={links.berkeley} target="_blank" rel="noopener noreferrer">Berkeley CS 294-158: Deep Unsupervised Learning</a> and Georgia Tech <a href={links.vlm} target="_blank" rel="noopener noreferrer">CS 8803-VLM: Vision-Language Models &amp; Multimodal Agents</a>.</p>
       </section>
     </div>
   </div>
